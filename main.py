@@ -35,3 +35,5 @@ def echo_bot(message: Message):
 
 
 bot.polling(none_stop=True)
+bot.start_polling()
+bot.idle()
