@@ -1,4 +1,0 @@
-PyInstaller==3.5
-pyTelegramBotAPI==3.6.6
-python-telegram-bot==11.1.0
-
