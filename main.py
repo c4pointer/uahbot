@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import json
 import requests
 import telebot
@@ -43,7 +44,7 @@ def echo_bot(message: Message):
     btc = json_data[3]["ccy"] + "  " + "\n" + json_data[3]["buy"] + "  покупка" + "\n" + \
         json_data[3]["sale"] + "  продажа" + "\n______________________________\n"
     
-    footer= "\n\n\n\nHere can be  your promo link like "+links
+    footer= "\n\n\nHere can be  your promo link like "+links
 
     bot.send_message(message.chat.id,top_text + usd + eur + rur + btc+footer)
 

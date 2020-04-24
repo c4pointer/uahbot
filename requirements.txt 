@@ -2,4 +2,3 @@ django
 gunicorn
 django-heroku
 pyTelegramBotAPI==3.6.1
-
