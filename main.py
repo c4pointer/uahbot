@@ -19,7 +19,8 @@ def send_welcome(message: Message):
         bot.send_message(message.chat.id, "Привет, @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+
                         "), как твои дела? Чтобы узнать курс валют нажми /kurs")
     else:
-        print ("error")
+        print ("You are bot")
+        
 links=config.link
 @bot.message_handler(commands=['kurs'])
 def echo_bot(message: Message):
