@@ -1,3 +1,6 @@
 #!/usr/bin/python3
 
-link="Oleg.Zubak"
+token = "633561599:AAGWRO2n0jm79CScdqIY_haQQoai6yQ30DU" #this is main token
+
+# link for promo
+link="example.com"
