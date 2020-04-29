@@ -48,5 +48,9 @@ def echo_bot(message: Message):
 
     bot.send_message(message.chat.id,top_text + usd + eur + rur + btc+footer)
 
+@bot.message_handler( content_types='text')
+def command_help(message):
+    u_name=message.from_user.username
+    bot.send_message(message.chat.id, "@"+u_name+' если тебе нужен курс валют то жми /kurs')
 
 bot.polling(none_stop=True)
