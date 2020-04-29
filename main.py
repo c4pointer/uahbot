@@ -5,28 +5,27 @@ import telebot
 from telebot.types import Message
 import config
 
-
 bot = telebot.TeleBot(config.token)
-
+links=config.link
+def users():
+    u_name=message.from_user.username
+    u_lname=message.from_user.last_name
+    u_fname=message.from_user.first_name
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message: Message):
     isbot=message.from_user.is_bot
+    users()
     if message.from_user.is_bot is False:
-        u_name=message.from_user.username
-        u_lname=message.from_user.last_name
-        u_fname=message.from_user.first_name
         bot.send_message(message.chat.id, "Привет, @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+
                         "), как твои дела? Чтобы узнать курс валют нажми /kurs")
     else:
         print ("You are bot")
         
-links=config.link
+
 @bot.message_handler(commands=['kurs'])
 def echo_bot(message: Message):
-    u_name=message.from_user.username
-    u_lname=message.from_user.last_name
-    u_fname=message.from_user.first_name
+    users()
     
     main_api = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
 
