@@ -3,8 +3,7 @@ import json
 import requests
 import telebot
 import iso4217parse
-from config import link as lnk
-
+from config import *,link as lnk
 
 bot = telebot.TeleBot(config.token)
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
