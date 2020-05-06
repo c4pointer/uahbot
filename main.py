@@ -2,6 +2,7 @@
 import json
 import requests
 import telebot
+from telebot import types
 import iso4217parse
 import config
 from config import link as lnk
@@ -60,11 +61,19 @@ def send_welcome(message):
     u_lname=message.from_user.last_name
     u_fname=message.from_user.first_name
     
+    keyboard=types.ReplyKeyboardMarkup(one_time_keyboard=True)
+    keyboard1=types.KeyboardButton('/kurs_mono')
+    keyboard2=types.KeyboardButton('/kurs_beznal')
+    keyboard3=types.KeyboardButton('/kurs_otdelenie')
+    keyboard.add(keyboard1,keyboard2,keyboard3)
+    
     if message.from_user.is_bot is False:
         bot.send_message(message.chat.id, "Привет, @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+
-                        "), как твои дела? Чтобы узнать курс валют нажми /kurs")
+                        "), как твои дела? Чтобы узнать курс валют нажми ",reply_markup=keyboard)
     else:
         print ("error")
+        
+        
         
         
         
