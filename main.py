@@ -61,7 +61,7 @@ def send_welcome(message):
     u_lname=message.from_user.last_name
     u_fname=message.from_user.first_name
     
-    keyboard=types.ReplyKeyboardMarkup(one_time_keyboard=True)
+    keyboard=types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     keyboard1=types.KeyboardButton('/kurs_mono')
     keyboard2=types.KeyboardButton('/kurs_beznal')
     keyboard3=types.KeyboardButton('/kurs_otdelenie')
@@ -103,7 +103,7 @@ def echo_bot_mono(message):
     u_fname=message.from_user.first_name
     
     
-    top_text ="Привет @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+"), держи курс валют по безналу Приват Банка на сегодня:"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+    top_text ="Привет @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+"), держи курс валют по безналу Monobanka на сегодня:"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
     usd = str(usd_cur.parsing_cur()) + "  " +  "\n" + str(usd_cur.parsing_reateBuy()) + "  покупка" + "\n" + \
         str(usd_cur.parsing_reateSale()) + "  продажа" + "\n______________________________\n"
