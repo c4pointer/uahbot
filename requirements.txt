@@ -4,3 +4,4 @@ python-dateutil==2.7.3
 python-telegram-bot==11.1.0
 requests==2.23.0
 iso4217parse==0.5.1
+schedule==0.6.0
