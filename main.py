@@ -14,41 +14,29 @@ main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursi
 mono_api="https://api.monobank.ua/bank/currency"
 
 
-
+json_data = requests.get(mono_api).json()
 
 class Currency():
     """
     Создаем класс валют чтобы сюда парсить все валюты
     """
-    def __init__(self, cur_name, buy, sale):
+    def __init__(self, cur_name):
         self.cur_name=cur_name
-        self.buy=buy
-        self.sale=sale
-        # print("Def is created "+str(self.cur_name))
+
         
     def parsing_cur (self):
         """
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
-        pars=iso4217parse.by_code_num(int(self.cur_name))
-        pars_cur=pars.alpha3
-        return pars_cur
-    
-    def parsing_reateBuy (self):
-        """
-        Создаем функцию которая будет парсить курс покупки
-        """
-        pars_rate=(float(self.buy))
-        return pars_rate
-    
-    def parsing_reateSale (self):
-        """
-        Создаем функцию которая будет парсить курс продажи
-        """
-        pars_sale=(float(self.sale))
-        return pars_sale
-
-
+        for i in range(int(self.cur_name)):
+            cur_a=(json_data[i])
+            name_cur=cur_a.get('currencyCodeA')
+            pars=iso4217parse.by_code_num(int(name_cur))
+            pars_cur4=pars.alpha3
+            rateBuy=cur_a.get('rateBuy')
+            rateSell=cur_a.get('rateSell')
+            i+=1
+        return pars_cur4, rateBuy, rateSell
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):  
@@ -71,55 +59,44 @@ def send_welcome(message):
     
         
 @bot.message_handler(content_types='text')
-def command_mono(message):
+
+
+def command_bank(message):
 
     u_name=message.from_user.username
     u_lname=message.from_user.last_name
     u_fname=message.from_user.first_name
     
     if message.text=='Monobank':
-        
-        json_data = requests.get(mono_api).json()
-        
-        usd=json_data[0]["currencyCodeA"]
-        c_buy=json_data[0]["rateBuy"]
-        c_sale=json_data[0]["rateSell"]   
-        usd_cur=Currency(int(usd), c_buy, c_sale)
 
-        eur=json_data[1]["currencyCodeA"]
-        c_buy_eur=json_data[1]["rateBuy"]
-        c_sale_eur=json_data[1]["rateSell"]   
-        eur_cur=Currency(int(eur), c_buy_eur, c_sale_eur)
 
-        rur=json_data[2]["currencyCodeA"]
-        c_buy_rur=json_data[2]["rateBuy"]
-        c_sale_rur=json_data[2]["rateSell"]   
-        rur_cur=Currency(int(rur), c_buy_rur, c_sale_rur)
+        usd_cur=Currency(1) 
+        eur_cur=Currency(2) 
+        rur_cur=Currency(3)
         
-        
-        top_text ="Привет @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+"), держи курс валют по безналу Monobank на сегодня:"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text ="Курс Monobank для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(u_name)+" ) :"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        usd = str(usd_cur.parsing_cur()) + "  " +  "\n" + str(usd_cur.parsing_reateBuy()) + "  покупка" + "\n" + \
-            str(usd_cur.parsing_reateSale()) + "  продажа" + "\n______________________________\n"
-        
-        eur = str(eur_cur.parsing_cur()) + "  " +  "\n" + str(eur_cur.parsing_reateBuy()) + "  покупка" + "\n" + \
-            str(eur_cur.parsing_reateSale()) + "  продажа" + "\n______________________________\n"
-        
-        rur = str(rur_cur.parsing_cur()) + "  " +  "\n" + str(rur_cur.parsing_reateBuy()) + "  покупка" + "\n" + \
-            str(rur_cur.parsing_reateSale()) + "  продажа" + "\n______________________________\n"
+        usd = str(usd_cur.parsing_cur()[0]) + "  " +  "\n" + str(usd_cur.parsing_cur()[1]) + "  покупка" + "\n" + \
+        str(usd_cur.parsing_cur()[2]) + "  продажа" + "\n______________________________\n"
+
+        eur = str(eur_cur.parsing_cur()[0]) + "  " +  "\n" + str(eur_cur.parsing_cur()[1]) + "  покупка" + "\n" + \
+        str(eur_cur.parsing_cur()[2]) + "  продажа" + "\n______________________________\n"
+
+        rur = str(rur_cur.parsing_cur()[0]) + "  " +  "\n" + str(rur_cur.parsing_cur()[0]) + "  покупка" + "\n" + \
+        str(rur_cur.parsing_cur()[2]) + "  продажа" + "\n______________________________\n"
         
 
-        footer= "\n\nHere can be  your promo link like "+lnk
+        footer= "\nHere can be  your promo link like "+lnk
 
         bot.send_message(message.chat.id,top_text + usd + eur + rur + footer)
-    
+
     elif message.text=='Privat karta':
         
         json_data = requests.get(main_api_remote).json()
     
 
 
-        top_text ="Привет @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+"), держи курс валют по безналу Приват Банка на сегодня:"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text ="Курс Privatbank по картам для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(u_name)+" ) :"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         usd = json_data[0]["ccy"] + "  " +  "\n" + json_data[0]["buy"] + "  покупка" + "\n" + \
             json_data[0]["sale"] + "  продажа" + "\n______________________________\n"
 
@@ -132,7 +109,7 @@ def command_mono(message):
         btc = json_data[3]["ccy"] + "  " + "\n" + json_data[3]["buy"] + "  покупка" + "\n" + \
             json_data[3]["sale"] + "  продажа" + "\n______________________________\n"
         
-        footer= "\n\nHere can be  your promo link like "+lnk
+        footer= "\nHere can be  your promo link like "+lnk
 
         bot.send_message(message.chat.id,top_text + usd + eur + rur + btc+footer)
         
@@ -142,7 +119,7 @@ def command_mono(message):
         
 
         
-        top_text ="Привет @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+"), держи курс валют в отделениях Приват Банка на сегодня:"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text ="Курс Privatbank по отделениям для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(u_name)+" ) :"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         usd = json_data[0]["ccy"] + "  " +  "\n" + json_data[0]["buy"] + "  покупка" + "\n" + \
             json_data[0]["sale"] + "  продажа" + "\n______________________________\n"
 
@@ -155,7 +132,7 @@ def command_mono(message):
         btc = json_data[3]["ccy"] + "  " + "\n" + json_data[3]["buy"] + "  покупка" + "\n" + \
             json_data[3]["sale"] + "  продажа" + "\n______________________________\n"
         
-        footer= "\n\nHere can be  your promo link like "+lnk
+        footer= "\nHere can be  your promo link like "+lnk
 
         bot.send_message(message.chat.id,top_text + usd + eur + rur + btc+footer)   
     else :
