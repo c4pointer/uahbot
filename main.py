@@ -90,8 +90,6 @@ def command_bank(message):
     
     if message.text=='Monobank':
 
-        start_time = datetime.now()
-
         usd_cur=Currency(1, json_data1) #############################
         eur_cur=Currency(2, json_data1) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data1) #############################
@@ -114,14 +112,12 @@ def command_bank(message):
 
         if  u_name is None:
             bot.send_message(message.chat.id,top_text2 + usd + eur + rur + footer)
-            print(datetime.now() - start_time)
         else:
             bot.send_message(message.chat.id,top_text + usd + eur + rur + footer)
-            print(datetime.now() - start_time)
+
             
     elif message.text=='Privat karta':
-        start_time = datetime.now()
-        
+
         usd_cur=Currency(1, json_data2) #############################
         eur_cur=Currency(2, json_data2) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data2) #############################
@@ -150,13 +146,10 @@ def command_bank(message):
 
         if  u_name is None:
             bot.send_message(message.chat.id,top_text2 + usd + eur + rur+ btc + footer)
-            print(datetime.now() - start_time)
         else:
             bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer)
-            print(datetime.now() - start_time)
             
     elif message.text=='Privat otdelenie':
-        start_time = datetime.now()
         
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
@@ -184,10 +177,8 @@ def command_bank(message):
 
         if  u_name is None:
             bot.send_message(message.chat.id,top_text2 + usd + eur + rur + btc + footer)
-            print(datetime.now() - start_time)
         else:
             bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer)
-            print(datetime.now() - start_time)
             
     else :
 
