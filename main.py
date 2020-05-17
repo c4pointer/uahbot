@@ -16,7 +16,7 @@ main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid
 main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"
 mono_api="https://api.monobank.ua/bank/currency"
 
-json_data1 = requests.get(mono_api).json()З
+json_data1 = requests.get(mono_api).json()
 json_data2 = requests.get(main_api_remote).json()
 json_data3 = requests.get(main_api_local).json()
 
