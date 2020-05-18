@@ -184,6 +184,6 @@ def command_bank(message):
 
         print("Выбирайте нужную комманду")
         
-        bot.send_message(message.chat.id,  "@"+u_name+' правильнее будет - /kurs_beznal (чтобы узнать безналичный курс),\n/kurs_otdelenie (чтобы узнать курс в отделениях), /kurs_mono- для Монобанка, \n /start ')
+        bot.send_message(message.chat.id,  "@"+u_name+' правильнее будет - /start ')
 
 bot.polling(none_stop=True)
