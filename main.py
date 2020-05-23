@@ -136,7 +136,7 @@ def command_bank(message):
         eur = str(eur_cur.parsing_cur()[0]) + cname2 +  "\n" + str(eur_cur.parsing_cur()[1]) + "  покупка" + "\n" + \
         str(eur_cur.parsing_cur()[2]) + "  продажа" + "\n______________________________\n"
 
-        rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[0]) + "  покупка" + "\n" + \
+        rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  покупка" + "\n" + \
         str(rur_cur.parsing_cur()[2]) + "  продажа" + "\n______________________________\n"
         
 
