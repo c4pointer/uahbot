@@ -10,7 +10,6 @@ import iso4217parse
 import config
 from config import link as lnk
 
-
 bot = telebot.TeleBot(config.token)
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"#api of PrivatBank 
 main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"#api of PrivatBank 
@@ -61,8 +60,7 @@ class Currency():
             rateSell=cur_a.get('sale')
             i+=1
         return name_cur, rateBuy, rateSell
-
-
+    
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -78,8 +76,6 @@ def send_welcome(message):
     keyboard3=types.KeyboardButton('Privat otdelenie')###Кнопки для набора команд вместо клавиатуры
     keyboard4=types.KeyboardButton('/start')
     keyboard.add(keyboard1,keyboard2,keyboard3,keyboard4)
-
-    
     
     if u_name is  None:
         bot.send_message(message.chat.id, "Привет, @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname)+
@@ -102,12 +98,8 @@ def callback_inline(call):
     except Exception as e:
         print(repr(e))
 
-
-        
-        
+ 
 @bot.message_handler(content_types='text')
-
-
 def command_bank(message):
 
     inline_keyboard=types.InlineKeyboardMarkup()
