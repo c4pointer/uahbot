@@ -91,16 +91,16 @@ def send_welcome(message):
         
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
-  try:
-    if call.message:
-      if call.data == 'good':
-        bot.send_message(call.message.chat.id, 'Спасибо! Ваш голос учтен ')
-      if call.data == 'bad':
-        bot.send_message(call.message.chat.id, 'Буду стараться больше... ')
- 
-
-  except Exception as e:
-    print(repr(e))
+    
+    try:
+        if call.message:
+            if call.data == 'like':
+                bot.send_message(call.message.chat.id, 'Спасибо! Ваш голос учтен ')
+            if call.data == 'unlike':
+                bot.send_message(call.message.chat.id, 'Буду стараться больше... ')
+                
+    except Exception as e:
+        print(repr(e))
 
 
         
@@ -111,8 +111,8 @@ def callback_inline(call):
 def command_bank(message):
 
     inline_keyboard=types.InlineKeyboardMarkup()
-    inkeyboard1=types.InlineKeyboardButton("Like", callback_data='good')   ####ссылки под  выведеным сообщением
-    inkeyboard2=types.InlineKeyboardButton("Unlike" , callback_data='bad')
+    inkeyboard1=types.InlineKeyboardButton("Автор",  url='https://t.me/mr_etelstan',   callback_data='like')   ####ссылки под  выведеным сообщением
+    inkeyboard2=types.InlineKeyboardButton("Подписаться" , callback_data='unlike')
 
     inline_keyboard.add(inkeyboard1, inkeyboard2)
     
@@ -130,19 +130,18 @@ def command_bank(message):
         
         top_text2 ="Курс Monobank для "+str(u_fname)+" "+str(u_lname)+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        usd = str(usd_cur.parsing_cur()[0]) + cname1 +  "\n" + str(usd_cur.parsing_cur()[1]) + "  -покупка" + "\n" + \
-        str(usd_cur.parsing_cur()[2]) + "  -продажа" + "\n______________________________\n"
+        usd = str(usd_cur.parsing_cur()[0]) + cname1 +  "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+        str(usd_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
 
-        eur = str(eur_cur.parsing_cur()[0]) + cname2 +  "\n" + str(eur_cur.parsing_cur()[1]) + "  -покупка" + "\n" + \
-        str(eur_cur.parsing_cur()[2]) + "  -продажа" + "\n______________________________\n"
+        eur = str(eur_cur.parsing_cur()[0]) + cname2 +  "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+        str(eur_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
 
-        rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  -покупка" + "\n" + \
-        str(rur_cur.parsing_cur()[2]) + "  -продажа" + "\n______________________________\n"
+        rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+        str(rur_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
         
 
         if  u_name is None:
             bot.send_message(message.chat.id,top_text2 + usd + eur + rur + footer, reply_markup=inline_keyboard)
-
         else:
             bot.send_message(message.chat.id,top_text + usd + eur + rur + footer, reply_markup=inline_keyboard)
 
@@ -159,30 +158,27 @@ def command_bank(message):
         
         top_text2 ="Курс Privatbank по картам для "+str(u_fname)+" "+str(u_lname)+" :"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         
-        usd = str(usd_cur.parsing_pb()[0]) + cname1 +  "\n" + str(usd_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(usd_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        usd = str(usd_cur.parsing_pb()[0]) + cname1 +  "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(usd_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        eur = str(eur_cur.parsing_pb()[0]) + cname2 +  "\n" + str(eur_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(eur_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        eur = str(eur_cur.parsing_pb()[0]) + cname2 +  "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(eur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
 
-        rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(rur_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        btc = str(btc_cur.parsing_pb()[0]) + cname4 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(btc_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        btc = str(btc_cur.parsing_pb()[0]) + cname4 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(btc_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
         
 
         if  u_name is None:
             bot.send_message(message.chat.id,top_text2 + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
-
         else:
             bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
 
-            
     elif message.text=='Privat otdelenie':
-
         
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
@@ -193,27 +189,25 @@ def command_bank(message):
         
         top_text2 ="Курс Privatbank по отделениям для "+str(u_fname)+" "+str(u_lname)+"  :"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         
-        usd = str(usd_cur.parsing_pb()[0]) + cname1 +  "\n" + str(usd_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(usd_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        usd = str(usd_cur.parsing_pb()[0]) + cname1 +  "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(usd_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        eur = str(eur_cur.parsing_pb()[0]) + cname2 +  "\n" + str(eur_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(eur_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        eur = str(eur_cur.parsing_pb()[0]) + cname2 +  "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(eur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
 
-        rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(rur_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        btc = str(btc_cur.parsing_pb()[0]) + cname4 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  -покупка" + "\n" + \
-        str(btc_cur.parsing_pb()[2]) + "  -продажа" + "\n______________________________\n"
+        btc = str(btc_cur.parsing_pb()[0]) + cname4 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        str(btc_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
         
         
 
         if  u_name is None:
             bot.send_message(message.chat.id,top_text2 + usd + eur + rur + btc + footer, reply_markup=inline_keyboard)
-            
         else:
             bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
-       
             
     else :
 
