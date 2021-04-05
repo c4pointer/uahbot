@@ -62,6 +62,14 @@ class Currency():
             i+=1
         return name_cur, rateBuy, rateSell
     
+today = datetime.date.today()
+
+# for i in range(4,5):
+#     all_cur=Currency(i, json_data1) #############################
+#     x=all_cur.parsing_cur()[0]
+#     c.append(str(x))
+day=str(today)
+
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
@@ -119,7 +127,7 @@ def command_bank(message):
         eur_cur=Currency(2, json_data1) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data1) #############################
         
-        top_text ="Курс Monobank для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(u_name)+" ) :"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text ="Курс Monobank для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         
         top_text2 ="Курс Monobank для "+str(u_fname)+" "+str(u_lname)+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
