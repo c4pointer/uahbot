@@ -62,7 +62,7 @@ class Currency():
             i+=1
         return name_cur, rateBuy, rateSell
     
-day= datetime.date.today()
+day= time.asctime( time.localtime(time.time()) )
 
 
 
