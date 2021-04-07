@@ -61,10 +61,6 @@ class Currency():
             rateSell=cur_a.get('sale')
             i+=1
         return name_cur, rateBuy, rateSell
-    
-day= time.ctime()
-
-
 
 
 @bot.message_handler(commands=['start'])
@@ -119,6 +115,7 @@ def command_bank(message):
     
     if message.text=='Monobank':
 
+        day= time.ctime()
         usd_cur=Currency(1, json_data1) #############################
         eur_cur=Currency(2, json_data1) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data1) #############################
@@ -144,7 +141,8 @@ def command_bank(message):
 
             
     elif message.text=='Privat karta':
-        
+
+        day= time.ctime()
         usd_cur=Currency(1, json_data2) #############################
         eur_cur=Currency(2, json_data2) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data2) #############################
@@ -177,6 +175,7 @@ def command_bank(message):
 
     elif message.text=='Privat otdelenie':
         
+        day= time.ctime()
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data3) #############################
