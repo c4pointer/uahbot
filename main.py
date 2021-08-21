@@ -6,22 +6,26 @@ import time
 import json
 import requests
 import telebot
+import os
+import datetime as dt
 from telebot import types
 import iso4217parse
 import config
 from config import link as lnk
 
 bot = telebot.TeleBot(config.token)
-main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"#api of PrivatBank 
-main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"#api of PrivatBank 
-mono_api="https://api.monobank.ua/bank/currency"#api of Monobank 
+main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"     # api of PrivatBank 
+main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"   # api of PrivatBank 
+mono_api="https://api.monobank.ua/bank/currency"                                        # api of Monobank 
 ###########################################################################
 json_data1 = requests.get(mono_api).json()         
 json_data2 = requests.get(main_api_remote).json()
-json_data3 = requests.get(main_api_local).json()#
-cname1=" - американский доллар"                 #Обьявление переменных
-cname2=" - евро"                                #
-cname3=" - россиский рубль"                     #
+json_data3 = requests.get(main_api_local).json()    
+time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
+day=time.strftime("%d %m %Y, %H:%M")                                #
+cname1=" - американский доллар"                                     # Обьявление переменных
+cname2=" - евро"                                                    #
+cname3=" - россиский рубль"                                         #
 cname4=" - биткоин"
 footer= "\nHere can be  your promo link like "+lnk
 ###########################################################################
@@ -115,7 +119,7 @@ def command_bank(message):
     
     if message.text=='Monobank':
 
-        day= time.ctime()
+
         usd_cur=Currency(1, json_data1) #############################
         eur_cur=Currency(2, json_data1) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data1) #############################
@@ -142,7 +146,7 @@ def command_bank(message):
             
     elif message.text=='Privat karta':
 
-        day= time.ctime()
+
         usd_cur=Currency(1, json_data2) #############################
         eur_cur=Currency(2, json_data2) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data2) #############################
@@ -175,7 +179,7 @@ def command_bank(message):
 
     elif message.text=='Privat otdelenie':
         
-        day= time.ctime()
+
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data3) #############################
