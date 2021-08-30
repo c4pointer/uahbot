@@ -20,9 +20,7 @@ mono_api="https://api.monobank.ua/bank/currency"                                
 ###########################################################################
 json_data1 = requests.get(mono_api).json()         
 json_data2 = requests.get(main_api_remote).json()
-json_data3 = requests.get(main_api_local).json()    
-time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
-day=time.strftime("%d %m %Y, %H:%M")                                #
+json_data3 = requests.get(main_api_local).json()                                   #
 cname1=" - американский доллар"                                     # Обьявление переменных
 cname2=" - евро"                                                    #
 cname3=" - россиский рубль"                                         #
@@ -116,7 +114,10 @@ def command_bank(message):
     u_name=message.from_user.username
     u_lname=message.from_user.last_name
     u_fname=message.from_user.first_name
-    
+    time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
+    day=time.strftime("%d %m %Y, %H:%M")  
+
+
     if message.text=='Monobank':
 
 
@@ -145,8 +146,8 @@ def command_bank(message):
 
             
     elif message.text=='Privat karta':
-
-
+        time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
+        day=time.strftime("%d %m %Y, %H:%M")  
         usd_cur=Currency(1, json_data2) #############################
         eur_cur=Currency(2, json_data2) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data2) #############################
@@ -178,8 +179,8 @@ def command_bank(message):
             bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
 
     elif message.text=='Privat otdelenie':
-        
-
+        time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
+        day=time.strftime("%d %m %Y, %H:%M")  
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data3) #############################
