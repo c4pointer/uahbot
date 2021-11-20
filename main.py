@@ -114,13 +114,11 @@ def command_bank(message):
     u_name=message.from_user.username
     u_lname=message.from_user.last_name
     u_fname=message.from_user.first_name
-    time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
-    day=time.strftime("%d %m %Y, %H:%M")  
-
+    day= time.ctime()
 
     if message.text=='Monobank':
 
-
+        
         usd_cur=Currency(1, json_data1) #############################
         eur_cur=Currency(2, json_data1) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data1) #############################
@@ -146,8 +144,7 @@ def command_bank(message):
 
             
     elif message.text=='Privat karta':
-        time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
-        day=time.strftime("%d %m %Y, %H:%M")  
+        day= time.ctime()
         usd_cur=Currency(1, json_data2) #############################
         eur_cur=Currency(2, json_data2) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data2) #############################
@@ -179,8 +176,7 @@ def command_bank(message):
             bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
 
     elif message.text=='Privat otdelenie':
-        time= dt.datetime.fromtimestamp(os.path.getmtime(__file__))
-        day=time.strftime("%d %m %Y, %H:%M")  
+        day= time.ctime()
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
         rur_cur=Currency(3, json_data3) #############################
