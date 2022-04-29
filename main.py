@@ -181,8 +181,8 @@ def command_bank(message):
         day= time.ctime()
         usd_cur=Currency(1, json_data3) #############################
         eur_cur=Currency(2, json_data3) ##Обьявление классов валюты##
-        rur_cur=Currency(3, json_data3) #############################
-        btc_cur=Currency(4, json_data3) ############################
+        #rur_cur=Currency(3, json_data3) #############################
+        btc_cur=Currency(3, json_data3) ############################
                 
         top_text ="Курс Privatbank по отделениям для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         
@@ -195,10 +195,10 @@ def command_bank(message):
         str(eur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
 
-        rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-        str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
+        # rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        # str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        btc = str(btc_cur.parsing_pb()[0]) + cname4 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        btc = str(btc_cur.parsing_pb()[0]) + cname3 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
         str(btc_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
         
         
