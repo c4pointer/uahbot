@@ -14,7 +14,7 @@ import config
 from config import link as lnk
 
 bot = telebot.TeleBot(config.token)
-bot.remove_webhook()
+# bot.remove_webhook()
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"     # api of PrivatBank 
 main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"   # api of PrivatBank 
 mono_api="https://api.monobank.ua/bank/currency"                                        # api of Monobank 
