@@ -11,6 +11,7 @@ import datetime as dt
 from telebot import types
 import iso4217parse
 import config
+import config2
 from config import link as lnk
 
 bot = telebot.TeleBot(config.token)
