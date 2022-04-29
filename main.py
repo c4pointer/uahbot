@@ -202,12 +202,17 @@ def command_bank(message):
         str(btc_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
         
         
-
+        # Ruble
+        # if  u_name is None:
+        #     bot.send_message(message.chat.id,top_text2 + usd + eur + rur + btc + footer, reply_markup=inline_keyboard)
+        # else:
+        #     bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
+        
+        # without RU
         if  u_name is None:
-            bot.send_message(message.chat.id,top_text2 + usd + eur + rur + btc + footer, reply_markup=inline_keyboard)
+            bot.send_message(message.chat.id,top_text2 + usd + eur + btc + footer, reply_markup=inline_keyboard)
         else:
-            bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
-            
+            bot.send_message(message.chat.id,top_text + usd + eur + btc + footer, reply_markup=inline_keyboard)   
     else :
 
         print("Выбирайте нужную комманду")
