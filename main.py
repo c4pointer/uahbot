@@ -27,7 +27,7 @@ cname1=" - американский доллар"   # Обьявление пе�
 cname2=" - евро"                  #
 cname3=" - Bitcoin"
 # cname3=" - россиский рубль"
-cname4=" - бiткоин"
+cname4=" - Bitcoin"
 footer= "\nHere can be  your promo link like "+lnk
 ###########################################################################
 class Currency():
@@ -136,21 +136,21 @@ def command_bank(message):
         eur = str(eur_cur.parsing_cur()[0]) + cname2 +  "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
         str(eur_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
 
-        rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-        str(rur_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
+        # rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+        # str(rur_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
         
 
         if  u_name is None:
-            bot.send_message(message.chat.id,top_text2 + usd + eur + rur + footer, reply_markup=inline_keyboard)
+            bot.send_message(message.chat.id,top_text2 + usd + eur + footer, reply_markup=inline_keyboard)
         else:
-            bot.send_message(message.chat.id,top_text + usd + eur + rur + footer, reply_markup=inline_keyboard)
+            bot.send_message(message.chat.id,top_text + usd + eur + footer, reply_markup=inline_keyboard)
 
             
     elif message.text=='Privat karta':
         day= time.ctime()
         usd_cur=Currency(1, json_data2) #############################
         eur_cur=Currency(2, json_data2) ##Обьявление классов валюты##
-        rur_cur=Currency(3, json_data2) #############################
+        # rur_cur=Currency(3, json_data2) #############################
         btc_cur=Currency(4, json_data2) ############################
         
 
@@ -165,8 +165,8 @@ def command_bank(message):
         str(eur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
 
-        rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-        str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
+        # rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        # str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
         btc = str(btc_cur.parsing_pb()[0]) + cname4 +  "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
         str(btc_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
@@ -174,9 +174,9 @@ def command_bank(message):
         
 
         if  u_name is None:
-            bot.send_message(message.chat.id,top_text2 + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
+            bot.send_message(message.chat.id,top_text2 + usd + rur+ btc + footer, reply_markup=inline_keyboard)
         else:
-            bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
+            bot.send_message(message.chat.id,top_text + usd + eur +  btc + footer, reply_markup=inline_keyboard)
 
     elif message.text=='Privat otdelenie':
         day= time.ctime()
