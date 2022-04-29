@@ -23,10 +23,11 @@ mono_api="https://api.monobank.ua/bank/currency"                                
 json_data1 = requests.get(mono_api).json()         
 json_data2 = requests.get(main_api_remote).json()
 json_data3 = requests.get(main_api_local).json()                                   #
-cname1=" - американский доллар"                                     # Обьявление переменных
-cname2=" - евро"                                                    #
-cname3=" - россиский рубль"                                         #
-cname4=" - биткоин"
+cname1=" - американский доллар"   # Обьявление переменных
+cname2=" - евро"                  #
+cname3=" - Bitcoin"
+# cname3=" - россиский рубль"
+# cname4=" - биткоин"
 footer= "\nHere can be  your promo link like "+lnk
 ###########################################################################
 class Currency():
