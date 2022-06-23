@@ -1,1 +1,4 @@
 plaintext.txt
+.venv
+.vscode
+__pycache__
