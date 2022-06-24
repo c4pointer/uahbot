@@ -12,9 +12,9 @@ from telebot import types
 import iso4217parse
 import config
 import config2
-from config2 import link as lnk
+from config import link as lnk
 
-bot = telebot.TeleBot(config2.token)
+bot = telebot.TeleBot(config.token)
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
@@ -85,7 +85,7 @@ def send_welcome(message):
     u_fname = message.from_user.first_name
 
     with open('users.txt' , 'a') as userid:
-        userid.write(str(u_name) +str('\n') )
+        userid.write(str(u_name)+" - " +str(u_fname) + " "+ str(u_lname) + str('\n'))
         
 
     keyboard = types.ReplyKeyboardMarkup(
