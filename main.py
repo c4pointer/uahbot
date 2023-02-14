@@ -27,11 +27,11 @@ json_data1 = requests.get(mono_api).json()
 json_data2 = requests.get(main_api_remote).json()
 json_data3 = requests.get(main_api_local).json(
 )
-cname1 = " - американский доллар"
-cname2 = " - евро"
-cname3 = " - Bitcoin"
-# cname3=" - россиский рубль"
-cname4 = " - Bitcoin"
+cname2 = " - американский доллар"
+cname1 = " - евро"
+# cname3 = " - Bitcoin"
+# # cname3=" - россиский рубль"
+# cname4 = " - Bitcoin"
 footer = "\n"+lnk
 ###########################################################################
 
@@ -150,12 +150,12 @@ def command_bank(message):
             str(u_fname)+" "+str(u_lname)+" ) на "+day+":" + \
             "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        usd = str(usd_cur.parsing_cur()[0]) + cname1 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-            str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
+        eur = str(eur_cur.parsing_cur()[0]) + cname1 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+            str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        eur = str(eur_cur.parsing_cur()[0]) + cname2 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-            str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
+        usd = str(usd_cur.parsing_cur()[0]) + cname2 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+            str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
         # rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
@@ -193,16 +193,16 @@ def command_bank(message):
         # rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
         # str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        btc = str(btc_cur.parsing_pb()[0]) + cname4 + "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-            str(btc_cur.parsing_pb()[2]) + "  - продажа" + \
-            "\n______________________________\n"
+        # btc = str(btc_cur.parsing_pb()[0]) + cname4 + "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        #     str(btc_cur.parsing_pb()[2]) + "  - продажа" + \
+        #     "\n______________________________\n"
 
         if u_name is None:
             bot.send_message(message.chat.id, top_text2 + usd +
-                             rur + btc + footer, reply_markup=inline_keyboard)
+                            eur + footer, reply_markup=inline_keyboard)
         else:
             bot.send_message(message.chat.id, top_text + usd +
-                             eur + btc + footer, reply_markup=inline_keyboard)
+                            eur + footer, reply_markup=inline_keyboard)
 
     elif message.text == 'Privat otdelenie':
         day = time.ctime()
@@ -229,9 +229,9 @@ def command_bank(message):
         # rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
         # str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
 
-        btc = str(btc_cur.parsing_pb()[0]) + cname3 + "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-            str(btc_cur.parsing_pb()[2]) + "  - продажа" + \
-            "\n______________________________\n"
+        # btc = str(btc_cur.parsing_pb()[0]) + cname3 + "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        #     str(btc_cur.parsing_pb()[2]) + "  - продажа" + \
+        #     "\n______________________________\n"
 
         # Ruble
         # if  u_name is None:
@@ -242,10 +242,10 @@ def command_bank(message):
         # without RU
         if u_name is None:
             bot.send_message(message.chat.id, top_text2 + usd +
-                             eur + btc + footer, reply_markup=inline_keyboard)
+                             eur + footer, reply_markup=inline_keyboard)
         else:
             bot.send_message(message.chat.id, top_text + usd +
-                             eur + btc + footer, reply_markup=inline_keyboard)
+                             eur + footer, reply_markup=inline_keyboard)
     else:
 
         print("Выбирайте нужную комманду")
