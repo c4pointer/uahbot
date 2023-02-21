@@ -12,9 +12,10 @@ from telebot import types
 import iso4217parse
 import config
 import config2
-from config import link as lnk
+from config2 import link as lnk
+import odoo_db
 
-bot = telebot.TeleBot(config.token)
+bot = telebot.TeleBot(config2.token)
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
@@ -48,6 +49,7 @@ class Currency():
 
     def parsing_cur(self):
         """
+        Only for API for Monobank
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
         api_type = self.api
@@ -63,6 +65,7 @@ class Currency():
 
     def parsing_pb(self):
         """
+        Only for API for PrivatBank
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
         api_type = self.api
@@ -99,10 +102,10 @@ def send_welcome(message):
 
     if u_name is None:
         bot.send_message(message.chat.id, "Привет, @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname) +
-                         "), как твои дела? Нажимай или набирай - /start", reply_markup=keyboard)
+                         "), как твои дела? Чтобы начать - нажимай или набирай - /start", reply_markup=keyboard)
     else:
         bot.send_message(message.chat.id, "Привет, "+str(u_fname)+" "+str(u_lname) +
-                         ", как твои дела? Нажимай или набирай - /start", reply_markup=keyboard)
+                         ", как твои дела? Чтобы начать - нажимай или набирай - /start", reply_markup=keyboard)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -139,9 +142,8 @@ def command_bank(message):
 
     if message.text == 'Monobank':
 
-        usd_cur = Currency(1, json_data1)
-        eur_cur = Currency(2, json_data1)  # Обьявление классов валюты##
-        rur_cur = Currency(3, json_data1)
+        usd_cur = Currency(2, json_data1)
+        eur_cur = Currency(1, json_data1)  # Обьявление классов валюты##
 
         top_text = "Курс Monobank для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(
             u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
@@ -150,16 +152,14 @@ def command_bank(message):
             str(u_fname)+" "+str(u_lname)+" ) на "+day+":" + \
             "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        eur = str(eur_cur.parsing_cur()[0]) + cname1 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+        eur = str(eur_cur.parsing_cur()[0]) + cname2 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
             str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        usd = str(usd_cur.parsing_cur()[0]) + cname2 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+        usd = str(usd_cur.parsing_cur()[0]) + cname1 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
             str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        # rur = str(rur_cur.parsing_cur()[0]) +  cname3 +  "\n" + str(rur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-        # str(rur_cur.parsing_cur()[2]) + "  - продажа" + "\n______________________________\n"
 
         if u_name is None:
             bot.send_message(message.chat.id, top_text2 +
@@ -167,13 +167,14 @@ def command_bank(message):
         else:
             bot.send_message(message.chat.id, top_text + usd +
                              eur + footer, reply_markup=inline_keyboard)
-
+        try:
+            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_cur()[0]) ,str(eur_cur.parsing_cur()[0]), str(usd_cur.parsing_cur()[2]),str(usd_cur.parsing_cur()[1]), str(eur_cur.parsing_cur()[2]),str(eur_cur.parsing_cur()[1]))
+        except Exception as e:
+            print(e)
     elif message.text == 'Privat karta':
         day = time.ctime()
-        usd_cur = Currency(1, json_data2)
-        eur_cur = Currency(2, json_data2)  # Обьявление классов валюты##
-        # rur_cur=Currency(3, json_data2) #############################
-        btc_cur = Currency(4, json_data2)
+        usd_cur = Currency(2, json_data2)
+        eur_cur = Currency(1, json_data2)  # Обьявление классов валюты##
 
         top_text = "Курс Privatbank по картам для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(
             u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
@@ -182,20 +183,14 @@ def command_bank(message):
             str(u_fname)+" "+str(u_lname)+" ) на "+day+":" + \
             "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        usd = str(usd_cur.parsing_pb()[0]) + cname1 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        usd = str(usd_cur.parsing_pb()[0]) + cname2 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
             str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        eur = str(eur_cur.parsing_pb()[0]) + cname2 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        eur = str(eur_cur.parsing_pb()[0]) + cname1 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
             str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        # rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-        # str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
-
-        # btc = str(btc_cur.parsing_pb()[0]) + cname4 + "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-        #     str(btc_cur.parsing_pb()[2]) + "  - продажа" + \
-        #     "\n______________________________\n"
 
         if u_name is None:
             bot.send_message(message.chat.id, top_text2 + usd +
@@ -204,12 +199,14 @@ def command_bank(message):
             bot.send_message(message.chat.id, top_text + usd +
                             eur + footer, reply_markup=inline_keyboard)
 
+        try:
+            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
+        except Exception as e:
+            print(e)
     elif message.text == 'Privat otdelenie':
         day = time.ctime()
-        usd_cur = Currency(1, json_data3)
-        eur_cur = Currency(2, json_data3)  # Обьявление классов валюты##
-        #rur_cur=Currency(3, json_data3) #############################
-        btc_cur = Currency(3, json_data3)
+        usd_cur = Currency(2, json_data3)
+        eur_cur = Currency(1, json_data3)  # Обьявление классов валюты##
 
         top_text = "Курс Privatbank по отделениям для "+str(u_fname)+" "+str(
             u_lname)+" ( @"+str(u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
@@ -218,34 +215,24 @@ def command_bank(message):
             str(u_fname)+" "+str(u_lname)+" ) на "+day + \
             ":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        usd = str(usd_cur.parsing_pb()[0]) + cname1 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        usd = str(usd_cur.parsing_pb()[0]) + cname2 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
             str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        eur = str(eur_cur.parsing_pb()[0]) + cname2 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
+        eur = str(eur_cur.parsing_pb()[0]) + cname1 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
             str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        # rur = str(rur_cur.parsing_pb()[0]) + cname3 +  "\n" + str(rur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-        # str(rur_cur.parsing_pb()[2]) + "  - продажа" + "\n______________________________\n"
-
-        # btc = str(btc_cur.parsing_pb()[0]) + cname3 + "\n" + str(btc_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-        #     str(btc_cur.parsing_pb()[2]) + "  - продажа" + \
-        #     "\n______________________________\n"
-
-        # Ruble
-        # if  u_name is None:
-        #     bot.send_message(message.chat.id,top_text2 + usd + eur + rur + btc + footer, reply_markup=inline_keyboard)
-        # else:
-        #     bot.send_message(message.chat.id,top_text + usd + eur + rur+ btc + footer, reply_markup=inline_keyboard)
-
-        # without RU
         if u_name is None:
             bot.send_message(message.chat.id, top_text2 + usd +
                              eur + footer, reply_markup=inline_keyboard)
         else:
             bot.send_message(message.chat.id, top_text + usd +
                              eur + footer, reply_markup=inline_keyboard)
+        try:
+            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
+        except Exception as e:
+            print(e)
     else:
 
         print("Выбирайте нужную комманду")

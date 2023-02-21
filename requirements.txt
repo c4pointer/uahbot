@@ -5,3 +5,4 @@ python-telegram-bot==13.11.0
 requests==2.27.1
 iso4217parse==0.5.1
 schedule==1.1.0
+psycopg2
