@@ -15,7 +15,7 @@ import config2
 from config2 import link as lnk
 import odoo_db
 
-bot = telebot.TeleBot(config2.token)
+bot = telebot.TeleBot(config2.odoo_test_bot)
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
