@@ -3,10 +3,8 @@
 # created by neo
 # Version-1.0
 import time
-import json
 import requests
 import telebot
-import os
 import datetime as dt
 from telebot import types
 import iso4217parse
@@ -15,7 +13,7 @@ import config2
 from config2 import link as lnk
 import odoo_db
 
-bot = telebot.TeleBot(config2.odoo_test_bot)
+bot = telebot.TeleBot(config2.token)
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
@@ -139,11 +137,11 @@ def command_bank(message):
     u_lname = message.from_user.last_name
     u_fname = message.from_user.first_name
     day = time.ctime()
-
+    user=str(str(u_name)+ " " + str(u_fname) + " " + str(u_lname) )
     if message.text == 'Monobank':
 
-        usd_cur = Currency(2, json_data1)
-        eur_cur = Currency(1, json_data1)  # Обьявление классов валюты##
+        eur_cur = Currency(2, json_data1)
+        usd_cur = Currency(1, json_data1)  # Обьявление классов валюты##
 
         top_text = "Курс Monobank для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(
             u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
@@ -152,12 +150,12 @@ def command_bank(message):
             str(u_fname)+" "+str(u_lname)+" ) на "+day+":" + \
             "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        eur = str(eur_cur.parsing_cur()[0]) + cname2 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-            str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
+        usd = str(usd_cur.parsing_cur()[0]) + cname2 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+            str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
-        usd = str(usd_cur.parsing_cur()[0]) + cname1 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-            str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
+        eur = str(eur_cur.parsing_cur()[0]) + cname1 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+            str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
             "\n______________________________\n"
 
 
@@ -168,7 +166,7 @@ def command_bank(message):
             bot.send_message(message.chat.id, top_text + usd +
                              eur + footer, reply_markup=inline_keyboard)
         try:
-            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_cur()[0]) ,str(eur_cur.parsing_cur()[0]), str(usd_cur.parsing_cur()[2]),str(usd_cur.parsing_cur()[1]), str(eur_cur.parsing_cur()[2]),str(eur_cur.parsing_cur()[1]))
+            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_cur()[0]) ,str(eur_cur.parsing_cur()[0]), str(usd_cur.parsing_cur()[2]),str(usd_cur.parsing_cur()[1]), str(eur_cur.parsing_cur()[2]),str(eur_cur.parsing_cur()[1]), str(user))
         except Exception as e:
             print(e)
     elif message.text == 'Privat karta':
@@ -200,7 +198,7 @@ def command_bank(message):
                             eur + footer, reply_markup=inline_keyboard)
 
         try:
-            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
+            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]), str(user))
         except Exception as e:
             print(e)
     elif message.text == 'Privat otdelenie':
@@ -230,7 +228,7 @@ def command_bank(message):
             bot.send_message(message.chat.id, top_text + usd +
                              eur + footer, reply_markup=inline_keyboard)
         try:
-            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
+            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]), str(user))
         except Exception as e:
             print(e)
     else:

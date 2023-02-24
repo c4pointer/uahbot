@@ -7,27 +7,37 @@ import config2
 import psycopg2
 import xmlrpc.client
 
-url = "http://34.97.129.95/" # Your local or remote host with "http://"
+url = "http://34.97.129.95/" # Your  remote host with "http://"
+# url = "http://localhost:8069/" # Your local  host with "http://"
 db = "bitnami_odoo"            # DB name
+# db = "neo-ubuntu"            # DB name
 username = "user@example.com"
-password = config2.api_odoo2 # API key for test server
-common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
-uid = common.authenticate(db, username, password,{} )
-models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
-conn = models.execute_kw(db, uid, password, 'bot.model', 'search_read', [], {'fields': ['name', 'usd','sell_data_usd','buy_data_usd','eur','sell_data_eur','buy_data_eur',], 'limit':1, 'order':'id desc'})
+# username = "admin"
 
-for names in conn:
+password = config2.api_odoo2 # API key for test server remote
+# password = config2.api_odoo # API key for test server local
+
+common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
+
+uid = common.authenticate(db, username, password,{} )
+
+models = xmlrpc.client.ServerProxy('{}/xmlrpc/2/object'.format(url))
+
+# conn = models.execute_kw(db, uid, password, 'bot.model', 'search_read', [], {'fields': ['name', 'usd','sell_data_usd','buy_data_usd','eur','sell_data_eur','buy_data_eur',], 'limit':1, 'order':'id desc'})
+
+
+# for names in conn:
     # print(names['id'])
-    last_entry= names
-    print(last_entry)
+    # last_entry= names
+    # print(last_entry)
     
-def odoo_bot_send(name_uah,usd, eur, sell_usd, buy_usd, sell_eur, buy_eur):
+def odoo_bot_send(name_uah,usd, eur, sell_usd, buy_usd, sell_eur, buy_eur, user):
     # cur.execute("""SELECT id, sell_data, buy_data, create_uid, write_uid, "name", usd_id, create_date, write_date
     # FROM public.bot_model ORDER BY write_date DESC  LIMIT 1
     # ;
     # """)
     try:
-        models.execute_kw(db, uid, password, 'bot.model', 'create', [{'name': name_uah, 'usd': usd, 'eur': eur, 'sell_data_usd': sell_usd, 'buy_data_usd': buy_usd, 'sell_data_eur': sell_eur, 'buy_data_eur': buy_eur}])
+        models.execute_kw(db, uid, password, 'bot.model', 'create', [{'name': name_uah, 'usd': usd, 'eur': eur, 'sell_data_usd': sell_usd, 'buy_data_usd': buy_usd, 'sell_data_eur': sell_eur, 'buy_data_eur': buy_eur, 'telegram_user': str(user)}] )
         
     except Exception as e:
         print(str(e) + "\n" + str("Error with inserting data to Odoo DB") )
