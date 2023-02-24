@@ -1,5 +1,5 @@
 plaintext.txt
-.venv
+venv
 .vscode
 __pycache__
 config.py
