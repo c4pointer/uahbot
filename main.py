@@ -33,15 +33,11 @@ json_data1 = requests.get(mono_api).json()
 json_data2 = requests.get(main_api_remote).json()
 json_data3 = requests.get(main_api_local).json(
 )
-cname2 = " - американский доллар"
 cname1 = " - евро"
-# cname3 = " - Bitcoin"
-# # cname3=" - россиский рубль"
-# cname4 = " - Bitcoin"
+cname2 = " - американский доллар"
+
 footer = f"\n{lnk}"
 
-
-###########################################################################
 
 class Currency():
     """
@@ -86,11 +82,18 @@ class Currency():
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     keyboard = InlineKeyboardMarkup(row_width=2)
-
-    main = types.InlineKeyboardButton(text='Смотреть Список Банков', callback_data='main_screen')
+    language_code = message.from_user.language_code
+    main = types.InlineKeyboardButton(text='Смотреть Список Банков', callback_data=f'main_screen|{language_code}')
     keyboard.add(main)
-    bot.send_message(
-        message.chat.id, "Смотреть Список Банков", reply_markup=keyboard)
+    logger.warning(message)
+    chat_id = message.chat.id
+    active_message_id = message.id +1
+    text = "Смотреть Список Банков"
+    bot.delete_message(
+        chat_id=message.chat.id,
+        message_id=message.message_id)
+    send_mesaages(
+        chat_id,active_message_id, text , keyboard)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -98,10 +101,11 @@ def callback_inline(call):
     try:
         if call.message:
             if str(call.data).startswith('main_screen'):
-                # logger.warning(call)
+                call_data = call.data.split('|')
+                language_code = call_data[1]
+
                 keyboard = InlineKeyboardMarkup(row_width=3)
                 isbot = call.from_user.is_bot
-                # Переменные для вывода ник нейма и  для имени и фамилии#######
                 u_name = call.from_user.username if str(call.from_user.username) != 'None' else ''
                 u_lname = call.from_user.last_name if str(call.from_user.last_name) != 'None' else ''
                 u_fname = call.from_user.first_name if str(call.from_user.first_name) != 'None' else ''
@@ -109,15 +113,17 @@ def callback_inline(call):
                 active_message_id = call.message.message_id
                 with open('users.txt', 'a') as userid:
                     userid.write(str(u_name) + " - " + str(u_fname) + " " + str(u_lname) + str('\n'))
-
-                keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data='Monobank')
-                keyboard2 = types.InlineKeyboardButton(text='Privat karta', callback_data='Privat karta')
-                # Кнопки для набора команд вместо клавиатуры
-                keyboard3 = types.InlineKeyboardButton(text='Privat otdelenie', callback_data='Privat otdelenie')
-                # start = types.InlineKeyboardButton(
-                #     "Главный Экран", callback_data=f'renew')
+                if str(language_code) == 'ru':
+                    keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
+                    keyboard2 = types.InlineKeyboardButton(text='Приват Карта', callback_data=f'Privat karta|{language_code}')
+                    keyboard3 = types.InlineKeyboardButton(text='Приват Отделение', callback_data=f'Privat otdelenie|{language_code}')
+                elif str(language_code) == 'en':
+                    keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
+                    keyboard2 = types.InlineKeyboardButton(
+                        text='Приват Card', callback_data=f'Privat karta|{language_code}')
+                    keyboard3 = types.InlineKeyboardButton(
+                        text='Privat Office', callback_data=f'Privat otdelenie|{language_code}')
                 keyboard.add(keyboard1, keyboard2, keyboard3)
-                # keyboard.add( start)
 
                 if u_name is None:
                     text = f"Привет, {str(u_fname)} {str(u_lname)}, как твои дела? Чтобы начать - нажимай или набирай - /start",
@@ -133,27 +139,37 @@ def callback_inline(call):
         if str(call.data).startswith('renew'):
             call_data = call.data.split('|')
             message = call_data[1]
+            language_code = call_data[2]
             active_message_id = call.message.message_id
-            command_bank(call, message, call.message.chat.id, active_message_id)
+            command_bank(call, message, call.message.chat.id, active_message_id, language_code)
 
         try:
             if str(call.data).startswith('Monobank'):
+                call_data = call.data.split('|')
+                message = call_data[0]
+                language_code = call_data[1]
                 active_message_id = call.message.message_id
-                command_bank(call, call.data, call.message.chat.id, active_message_id)
+                command_bank(call, message, call.message.chat.id, active_message_id, language_code)
         except Exception as e:
             logger.warning(f"Error in callback Monobank - {e}")
 
         try:
             if str(call.data).startswith('Privat karta'):
+                call_data = call.data.split('|')
+                message = call_data[0]
+                language_code = call_data[1]
                 active_message_id = call.message.message_id
-                command_bank(call, call.data, call.message.chat.id, active_message_id)
+                command_bank(call,message, call.message.chat.id, active_message_id, language_code)
         except Exception as e:
             logger.warning(f"Error in callback Privat karta - {e}")
 
         try:
             if str(call.data).startswith('Privat otdelenie'):
+                call_data = call.data.split('|')
+                message = call_data[0]
+                language_code = call_data[1]
                 active_message_id = call.message.message_id
-                command_bank(call, call.data, call.message.chat.id, active_message_id)
+                command_bank(call,message, call.message.chat.id, active_message_id, language_code)
         except Exception as e:
             logger.warning(f"Error in callback Privat otdelenie - {e}")
 
@@ -161,15 +177,15 @@ def callback_inline(call):
         logger.warning(f"Error in callback - {e}")
 
 
-def command_bank(call, message, chat_id, active_message_id):
+def command_bank(call, message, chat_id, active_message_id, language_code):
     keyboard = InlineKeyboardMarkup()
     inkeyboard1 = types.InlineKeyboardButton(
         "Автор", url='https://t.me/mr_etelstan', callback_data='like')  # ссылки под  выведеным сообщением
     # inkeyboard2 = types.InlineKeyboardButton(
     #     "Подписаться", callback_data='unlike')
     renew = types.InlineKeyboardButton(
-        "Обновить курс", callback_data=f'renew|{message}')
-    back = types.InlineKeyboardButton("Назад", callback_data=f'main_screen')
+        "Обновить курс", callback_data=f'renew|{message}|{language_code}')
+    back = types.InlineKeyboardButton("Назад", callback_data=f'main_screen|{language_code}')
     keyboard.add(inkeyboard1)
     keyboard.add(renew, back)
 
@@ -289,13 +305,17 @@ def command_bank(call, message, chat_id, active_message_id):
                              ' правильнее будет - /start ')
 
 def send_mesaages(chat_id, active_message_id, text, keyboard):
-    bot.edit_message_text(
-        chat_id=chat_id,
-        message_id=active_message_id,
-        text=text,
-        parse_mode='html',
-        reply_markup=keyboard
-    )
+    try:
+        bot.edit_message_text(
+            chat_id=chat_id,
+            message_id=active_message_id,
+            text=text,
+            parse_mode='html',
+            reply_markup=keyboard
+        )
+    except Exception as error:
+        bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
+
 
 
 bot.polling(none_stop=True)
