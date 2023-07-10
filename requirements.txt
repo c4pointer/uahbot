@@ -1,8 +1,8 @@
-pyTelegramBotAPI==4.5.0
-pytest==7.1.2
-python-dateutil==2.8.2
-python-telegram-bot==13.11.0
-requests==2.27.1
-iso4217parse==0.5.1
-schedule==1.1.0
+pyTelegramBotAPI
+pytest
+python-dateutil
+python-telegram-bot
+requests
+iso4217parse
+schedule
 psycopg2

@@ -10,10 +10,13 @@ import os
 import datetime as dt
 from telebot import types
 import iso4217parse
-import config
+# import config
 import config2
 from config2 import link as lnk
-import odoo_db
+# import odoo_db
+
+import logging
+logger = logging.getLogger()
 
 bot = telebot.TeleBot(config2.token)
 # bot.remove_webhook()
@@ -121,7 +124,7 @@ def callback_inline(call):
                                  'Буду стараться больше... ')
 
     except Exception as e:
-        print(repr(e))
+        logger.warning(f"Error in callback - {e}")
 
 
 @bot.message_handler(content_types='text')
@@ -170,7 +173,7 @@ def command_bank(message):
         try:
             odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_cur()[0]) ,str(eur_cur.parsing_cur()[0]), str(usd_cur.parsing_cur()[2]),str(usd_cur.parsing_cur()[1]), str(eur_cur.parsing_cur()[2]),str(eur_cur.parsing_cur()[1]))
         except Exception as e:
-            print(e)
+            logger.warning(f"Error in callback - {e}")
     elif message.text == 'Privat karta':
         day = time.ctime()
         usd_cur = Currency(2, json_data2)
@@ -202,7 +205,7 @@ def command_bank(message):
         try:
             odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
         except Exception as e:
-            print(e)
+            logger.warning(f"Error in callback - {e}")
     elif message.text == 'Privat otdelenie':
         day = time.ctime()
         usd_cur = Currency(2, json_data3)
@@ -232,10 +235,9 @@ def command_bank(message):
         try:
             odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
         except Exception as e:
-            print(e)
+            logger.warning(f"Error in callback - {e}")
     else:
-
-        print("Выбирайте нужную комманду")
+        logger.warning(f"Выбирайте нужную комманду")
 
         bot.send_message(message.chat.id,  "@"+u_name +
                          ' правильнее будет - /start ')
