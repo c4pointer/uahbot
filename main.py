@@ -4,15 +4,15 @@
 # Version-1.0
 import logging
 import time
-
+import os
+from dotenv import load_dotenv
 import iso4217parse
 import requests
 import telebot
 from telebot import types
 # import odoo_db
 from telebot.types import InlineKeyboardMarkup
-import requests
-import telebot
+
 # import config
 import config2
 from config2 import link as lnk
@@ -39,6 +39,8 @@ cname1 = " - евро"
 # # cname3=" - россиский рубль"
 # cname4 = " - Bitcoin"
 footer = f"\n{lnk}"
+
+
 ###########################################################################
 
 class Currency():
@@ -46,7 +48,6 @@ class Currency():
     Создаем класс валют чтобы сюда парсить все валюты
     и выводить вместо цифр из апи название валюты. 
     """
-
     def __init__(self, cur_name, api):
         self.cur_name = cur_name
         self.api = api
@@ -57,7 +58,6 @@ class Currency():
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
         api_type = self.api
-        logger.warning(api_type)
         for i in range(int(self.cur_name)):
             cur_a = (api_type[i])
             name_cur = cur_a.get('currencyCodeA')
@@ -74,7 +74,6 @@ class Currency():
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
         api_type = self.api
-        logger.warning(api_type)
         for i in range(int(self.cur_name)):
             cur_a = (api_type[i])
             name_cur = cur_a.get('ccy')
@@ -123,25 +122,22 @@ def callback_inline(call):
                 if u_name is None:
                     text = f"Привет, {str(u_fname)} {str(u_lname)}, как твои дела? Чтобы начать - нажимай или набирай - /start",
                     send_mesaages(
-                        chat_id,active_message_id,text,keyboard
+                        chat_id, active_message_id, text, keyboard
                     )
                 else:
                     text = f"Привет, @{str(u_name)} ({str(u_fname)} {str(u_lname)}), как твои дела? Чтобы начать - нажимай или набирай - /start",
                     send_mesaages(
-                        chat_id,active_message_id,text,keyboard
+                        chat_id, active_message_id, text, keyboard
                     )
 
         if str(call.data).startswith('renew'):
-            logger.warning((call.data))
             call_data = call.data.split('|')
             message = call_data[1]
-
             active_message_id = call.message.message_id
             command_bank(call, message, call.message.chat.id, active_message_id)
 
         try:
             if str(call.data).startswith('Monobank'):
-                logger.warning(f"{call.data}")
                 active_message_id = call.message.message_id
                 command_bank(call, call.data, call.message.chat.id, active_message_id)
         except Exception as e:
@@ -149,7 +145,6 @@ def callback_inline(call):
 
         try:
             if str(call.data).startswith('Privat karta'):
-                logger.warning(f"{call.data}")
                 active_message_id = call.message.message_id
                 command_bank(call, call.data, call.message.chat.id, active_message_id)
         except Exception as e:
@@ -157,7 +152,6 @@ def callback_inline(call):
 
         try:
             if str(call.data).startswith('Privat otdelenie'):
-                logger.warning(f"{call.data}")
                 active_message_id = call.message.message_id
                 command_bank(call, call.data, call.message.chat.id, active_message_id)
         except Exception as e:
@@ -185,35 +179,30 @@ def command_bank(call, message, chat_id, active_message_id):
     day = time.ctime()
 
     if message == 'Monobank':
-
         usd_cur = Currency(1, json_data1)
         eur_cur = Currency(2, json_data1)  # Обьявление классов валюты##
 
         top_text = "Курс Monobank для " + str(u_fname) + " " + str(u_lname) + " ( @" + str(
             u_name) + " ) на " + day + ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-
         top_text2 = "Курс Monobank для " + \
                     str(u_fname) + " " + str(u_lname) + " на " + day + ":" + \
                     "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-
         usd = str(usd_cur.parsing_cur()[0]) + cname2 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
               str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
               "\n______________________________\n"
-
         eur = str(eur_cur.parsing_cur()[0]) + cname1 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
               str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
               "\n______________________________\n"
-
         if u_name is None:
             text = (f"<b>{top_text2}</b>"
-            f"<b>{eur}</b>"
-            f"<b>{usd}</b>"
-            f"<b>{footer}</b>")
+                    f"<b>{eur}</b>"
+                    f"<b>{usd}</b>"
+                    f"<b>{footer}</b>")
         else:
             text = (f"<b>{top_text}</b>"
-            f"<b>{eur}</b>"
-            f"<b>{usd}</b>"
-            f"<b>{footer}</b>")
+                    f"<b>{eur}</b>"
+                    f"<b>{usd}</b>"
+                    f"<b>{footer}</b>")
         send_mesaages(
             chat_id,
             active_message_id,
@@ -227,32 +216,27 @@ def command_bank(call, message, chat_id, active_message_id):
         day = time.ctime()
         usd_cur = Currency(2, json_data2)
         eur_cur = Currency(1, json_data2)  # Обьявление классов валюты##
-
         top_text = "Курс Privatbank по картам для " + str(u_fname) + " " + str(u_lname) + " ( @" + str(
             u_name) + " ) на " + day + ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-
         top_text2 = "Курс Privatbank по картам для " + \
                     str(u_fname) + " " + str(u_lname) + " ) на " + day + ":" + \
                     "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-
         usd = str(usd_cur.parsing_pb()[0]) + cname2 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
               str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
               "\n______________________________\n"
-
         eur = str(eur_cur.parsing_pb()[0]) + cname1 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
               str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
               "\n______________________________\n"
-
         if u_name is None:
             text = (f"<b>{top_text2}</b>"
-            f"<b>{eur}</b>"
-            f"<b>{usd}</b>"
-            f"<b>{footer}</b>")
+                    f"<b>{eur}</b>"
+                    f"<b>{usd}</b>"
+                    f"<b>{footer}</b>")
         else:
             text = (f"<b>{top_text}</b>"
-            f"<b>{eur}</b>"
-            f"<b>{usd}</b>"
-            f"<b>{footer}</b>")
+                    f"<b>{eur}</b>"
+                    f"<b>{usd}</b>"
+                    f"<b>{footer}</b>")
         send_mesaages(
             chat_id,
             active_message_id,
@@ -269,29 +253,25 @@ def command_bank(call, message, chat_id, active_message_id):
 
         top_text = "Курс Privatbank по отделениям для " + str(u_fname) + " " + str(
             u_lname) + " ( @" + str(u_name) + " ) на " + day + ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-
         top_text2 = "Курс Privatbank по отделениям для " + \
                     str(u_fname) + " " + str(u_lname) + " ) на " + day + \
                     ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-
         usd = str(usd_cur.parsing_pb()[0]) + cname2 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
               str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
               "\n______________________________\n"
-
         eur = str(eur_cur.parsing_pb()[0]) + cname1 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
               str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
               "\n______________________________\n"
-
         if u_name is None:
             text = (f"<b>{top_text2}</b>"
-            f"<b>{eur}</b>"
-            f"<b>{usd}</b>"
-            f"<b>{footer}</b>")
+                    f"<b>{eur}</b>"
+                    f"<b>{usd}</b>"
+                    f"<b>{footer}</b>")
         else:
             text = (f"<b>{top_text}</b>"
-            f"<b>{eur}</b>"
-            f"<b>{usd}</b>"
-            f"<b>{footer}</b>")
+                    f"<b>{eur}</b>"
+                    f"<b>{usd}</b>"
+                    f"<b>{footer}</b>")
         send_mesaages(
             chat_id,
             active_message_id,
@@ -316,5 +296,6 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
         parse_mode='html',
         reply_markup=keyboard
     )
+
 
 bot.polling(none_stop=True)
