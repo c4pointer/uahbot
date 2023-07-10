@@ -2,21 +2,23 @@
 # -*- coding: utf-8 -*-
 # created by neo
 # Version-1.0
+import logging
 import time
-import json
+
+import iso4217parse
 import requests
 import telebot
-import os
-import datetime as dt
 from telebot import types
-import iso4217parse
+# import odoo_db
+from telebot.types import InlineKeyboardMarkup
+import requests
+import telebot
 # import config
 import config2
 from config2 import link as lnk
-# import odoo_db
 
-import logging
 logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 bot = telebot.TeleBot(config2.token)
 # bot.remove_webhook()
@@ -36,9 +38,8 @@ cname1 = " - евро"
 # cname3 = " - Bitcoin"
 # # cname3=" - россиский рубль"
 # cname4 = " - Bitcoin"
-footer = "\n"+lnk
+footer = f"\n{lnk}"
 ###########################################################################
-
 
 class Currency():
     """
@@ -56,6 +57,7 @@ class Currency():
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
         api_type = self.api
+        logger.warning(api_type)
         for i in range(int(self.cur_name)):
             cur_a = (api_type[i])
             name_cur = cur_a.get('currencyCodeA')
@@ -72,6 +74,7 @@ class Currency():
         Создаем функцию которая будет парсить нашу инностранную валюту
         """
         api_type = self.api
+        logger.warning(api_type)
         for i in range(int(self.cur_name)):
             cur_a = (api_type[i])
             name_cur = cur_a.get('ccy')
@@ -83,164 +86,235 @@ class Currency():
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
+    keyboard = InlineKeyboardMarkup(row_width=2)
 
-    isbot = message.from_user.is_bot
-    # Переменные для вывода ник нейма и  для имени и фамилии#######
-    u_name = message.from_user.username
-    u_lname = message.from_user.last_name
-    u_fname = message.from_user.first_name
-
-    with open('users.txt' , 'a') as userid:
-        userid.write(str(u_name)+" - " +str(u_fname) + " "+ str(u_lname) + str('\n'))
-        
-
-    keyboard = types.ReplyKeyboardMarkup(
-        one_time_keyboard=True, resize_keyboard=True, row_width=1)
-    keyboard1 = types.KeyboardButton('Monobank')
-    keyboard2 = types.KeyboardButton('Privat karta')
-    # Кнопки для набора команд вместо клавиатуры
-    keyboard3 = types.KeyboardButton('Privat otdelenie')
-    keyboard4 = types.KeyboardButton('/start')
-    keyboard.add(keyboard1, keyboard2, keyboard3, keyboard4)
-
-    if u_name is None:
-        bot.send_message(message.chat.id, "Привет, @"+str(u_name)+" ("+str(u_fname)+" "+str(u_lname) +
-                         "), как твои дела? Чтобы начать - нажимай или набирай - /start", reply_markup=keyboard)
-    else:
-        bot.send_message(message.chat.id, "Привет, "+str(u_fname)+" "+str(u_lname) +
-                         ", как твои дела? Чтобы начать - нажимай или набирай - /start", reply_markup=keyboard)
+    main = types.InlineKeyboardButton(text='Смотреть Список Банков', callback_data='main_screen')
+    keyboard.add(main)
+    bot.send_message(
+        message.chat.id, "Смотреть Список Банков", reply_markup=keyboard)
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
-
     try:
         if call.message:
-            if call.data == 'like':
-                bot.send_message(call.message.chat.id,
-                                 'Спасибо! Ваш голос учтен ')
-            if call.data == 'unlike':
-                bot.send_message(call.message.chat.id,
-                                 'Буду стараться больше... ')
+            if str(call.data).startswith('main_screen'):
+                # logger.warning(call)
+                keyboard = InlineKeyboardMarkup(row_width=3)
+                isbot = call.from_user.is_bot
+                # Переменные для вывода ник нейма и  для имени и фамилии#######
+                u_name = call.from_user.username if str(call.from_user.username) != 'None' else ''
+                u_lname = call.from_user.last_name if str(call.from_user.last_name) != 'None' else ''
+                u_fname = call.from_user.first_name if str(call.from_user.first_name) != 'None' else ''
+                chat_id = call.message.chat.id
+                active_message_id = call.message.message_id
+                with open('users.txt', 'a') as userid:
+                    userid.write(str(u_name) + " - " + str(u_fname) + " " + str(u_lname) + str('\n'))
+
+                keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data='Monobank')
+                keyboard2 = types.InlineKeyboardButton(text='Privat karta', callback_data='Privat karta')
+                # Кнопки для набора команд вместо клавиатуры
+                keyboard3 = types.InlineKeyboardButton(text='Privat otdelenie', callback_data='Privat otdelenie')
+                # start = types.InlineKeyboardButton(
+                #     "Главный Экран", callback_data=f'renew')
+                keyboard.add(keyboard1, keyboard2, keyboard3)
+                # keyboard.add( start)
+
+                if u_name is None:
+                    text = f"Привет, {str(u_fname)} {str(u_lname)}, как твои дела? Чтобы начать - нажимай или набирай - /start",
+                    send_mesaages(
+                        chat_id,active_message_id,text,keyboard
+                    )
+                else:
+                    text = f"Привет, @{str(u_name)} ({str(u_fname)} {str(u_lname)}), как твои дела? Чтобы начать - нажимай или набирай - /start",
+                    send_mesaages(
+                        chat_id,active_message_id,text,keyboard
+                    )
+
+        if str(call.data).startswith('renew'):
+            logger.warning((call.data))
+            call_data = call.data.split('|')
+            message = call_data[1]
+
+            active_message_id = call.message.message_id
+            command_bank(call, message, call.message.chat.id, active_message_id)
+
+        try:
+            if str(call.data).startswith('Monobank'):
+                logger.warning(f"{call.data}")
+                active_message_id = call.message.message_id
+                command_bank(call, call.data, call.message.chat.id, active_message_id)
+        except Exception as e:
+            logger.warning(f"Error in callback Monobank - {e}")
+
+        try:
+            if str(call.data).startswith('Privat karta'):
+                logger.warning(f"{call.data}")
+                active_message_id = call.message.message_id
+                command_bank(call, call.data, call.message.chat.id, active_message_id)
+        except Exception as e:
+            logger.warning(f"Error in callback Privat karta - {e}")
+
+        try:
+            if str(call.data).startswith('Privat otdelenie'):
+                logger.warning(f"{call.data}")
+                active_message_id = call.message.message_id
+                command_bank(call, call.data, call.message.chat.id, active_message_id)
+        except Exception as e:
+            logger.warning(f"Error in callback Privat otdelenie - {e}")
 
     except Exception as e:
         logger.warning(f"Error in callback - {e}")
 
 
-@bot.message_handler(content_types='text')
-def command_bank(message):
-
-    inline_keyboard = types.InlineKeyboardMarkup()
+def command_bank(call, message, chat_id, active_message_id):
+    keyboard = InlineKeyboardMarkup()
     inkeyboard1 = types.InlineKeyboardButton(
-        "Автор",  url='https://t.me/mr_etelstan',   callback_data='like')  # ссылки под  выведеным сообщением
-    inkeyboard2 = types.InlineKeyboardButton(
-        "Подписаться", callback_data='unlike')
+        "Автор", url='https://t.me/mr_etelstan', callback_data='like')  # ссылки под  выведеным сообщением
+    # inkeyboard2 = types.InlineKeyboardButton(
+    #     "Подписаться", callback_data='unlike')
+    renew = types.InlineKeyboardButton(
+        "Обновить курс", callback_data=f'renew|{message}')
+    back = types.InlineKeyboardButton("Назад", callback_data=f'main_screen')
+    keyboard.add(inkeyboard1)
+    keyboard.add(renew, back)
 
-    inline_keyboard.add(inkeyboard1, inkeyboard2)
-
-    u_name = message.from_user.username
-    u_lname = message.from_user.last_name
-    u_fname = message.from_user.first_name
+    u_name = call.from_user.username if str(call.from_user.username) != 'None' else ''
+    u_lname = call.from_user.last_name if str(call.from_user.last_name) != 'None' else ''
+    u_fname = call.from_user.first_name if str(call.from_user.first_name) != 'None' else ''
     day = time.ctime()
 
-    if message.text == 'Monobank':
+    if message == 'Monobank':
 
-        usd_cur = Currency(2, json_data1)
-        eur_cur = Currency(1, json_data1)  # Обьявление классов валюты##
+        usd_cur = Currency(1, json_data1)
+        eur_cur = Currency(2, json_data1)  # Обьявление классов валюты##
 
-        top_text = "Курс Monobank для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(
-            u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text = "Курс Monobank для " + str(u_fname) + " " + str(u_lname) + " ( @" + str(
+            u_name) + " ) на " + day + ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
         top_text2 = "Курс Monobank для " + \
-            str(u_fname)+" "+str(u_lname)+" ) на "+day+":" + \
-            "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+                    str(u_fname) + " " + str(u_lname) + " на " + day + ":" + \
+                    "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
-        eur = str(eur_cur.parsing_cur()[0]) + cname2 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-            str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
-            "\n______________________________\n"
+        usd = str(usd_cur.parsing_cur()[0]) + cname2 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+              str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
+              "\n______________________________\n"
 
-        usd = str(usd_cur.parsing_cur()[0]) + cname1 + "\n" + str(usd_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
-            str(usd_cur.parsing_cur()[2]) + "  - продажа" + \
-            "\n______________________________\n"
-
+        eur = str(eur_cur.parsing_cur()[0]) + cname1 + "\n" + str(eur_cur.parsing_cur()[1]) + "  - покупка" + "\n" + \
+              str(eur_cur.parsing_cur()[2]) + "  - продажа" + \
+              "\n______________________________\n"
 
         if u_name is None:
-            bot.send_message(message.chat.id, top_text2 +
-                             usd + eur + footer, reply_markup=inline_keyboard)
+            text = (f"<b>{top_text2}</b>"
+            f"<b>{eur}</b>"
+            f"<b>{usd}</b>"
+            f"<b>{footer}</b>")
         else:
-            bot.send_message(message.chat.id, top_text + usd +
-                             eur + footer, reply_markup=inline_keyboard)
-        try:
-            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_cur()[0]) ,str(eur_cur.parsing_cur()[0]), str(usd_cur.parsing_cur()[2]),str(usd_cur.parsing_cur()[1]), str(eur_cur.parsing_cur()[2]),str(eur_cur.parsing_cur()[1]))
-        except Exception as e:
-            logger.warning(f"Error in callback - {e}")
-    elif message.text == 'Privat karta':
+            text = (f"<b>{top_text}</b>"
+            f"<b>{eur}</b>"
+            f"<b>{usd}</b>"
+            f"<b>{footer}</b>")
+        send_mesaages(
+            chat_id,
+            active_message_id,
+            text, keyboard
+        )
+        # try:
+        #     odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_cur()[0]) ,str(eur_cur.parsing_cur()[0]), str(usd_cur.parsing_cur()[2]),str(usd_cur.parsing_cur()[1]), str(eur_cur.parsing_cur()[2]),str(eur_cur.parsing_cur()[1]))
+        # except Exception as e:
+        #     logger.warning(f"Error in callback - {e}")
+    elif message == 'Privat karta':
         day = time.ctime()
         usd_cur = Currency(2, json_data2)
         eur_cur = Currency(1, json_data2)  # Обьявление классов валюты##
 
-        top_text = "Курс Privatbank по картам для "+str(u_fname)+" "+str(u_lname)+" ( @"+str(
-            u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text = "Курс Privatbank по картам для " + str(u_fname) + " " + str(u_lname) + " ( @" + str(
+            u_name) + " ) на " + day + ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
         top_text2 = "Курс Privatbank по картам для " + \
-            str(u_fname)+" "+str(u_lname)+" ) на "+day+":" + \
-            "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+                    str(u_fname) + " " + str(u_lname) + " ) на " + day + ":" + \
+                    "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
         usd = str(usd_cur.parsing_pb()[0]) + cname2 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-            str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
-            "\n______________________________\n"
+              str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
+              "\n______________________________\n"
 
         eur = str(eur_cur.parsing_pb()[0]) + cname1 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-            str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
-            "\n______________________________\n"
-
+              str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
+              "\n______________________________\n"
 
         if u_name is None:
-            bot.send_message(message.chat.id, top_text2 + usd +
-                            eur + footer, reply_markup=inline_keyboard)
+            text = (f"<b>{top_text2}</b>"
+            f"<b>{eur}</b>"
+            f"<b>{usd}</b>"
+            f"<b>{footer}</b>")
         else:
-            bot.send_message(message.chat.id, top_text + usd +
-                            eur + footer, reply_markup=inline_keyboard)
-
-        try:
-            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
-        except Exception as e:
-            logger.warning(f"Error in callback - {e}")
-    elif message.text == 'Privat otdelenie':
+            text = (f"<b>{top_text}</b>"
+            f"<b>{eur}</b>"
+            f"<b>{usd}</b>"
+            f"<b>{footer}</b>")
+        send_mesaages(
+            chat_id,
+            active_message_id,
+            text, keyboard
+        )
+        # try:
+        #     odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
+        # except Exception as e:
+        #     logger.warning(f"Error in callback - {e}")
+    elif message == 'Privat otdelenie':
         day = time.ctime()
         usd_cur = Currency(2, json_data3)
         eur_cur = Currency(1, json_data3)  # Обьявление классов валюты##
 
-        top_text = "Курс Privatbank по отделениям для "+str(u_fname)+" "+str(
-            u_lname)+" ( @"+str(u_name)+" ) на "+day+":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text = "Курс Privatbank по отделениям для " + str(u_fname) + " " + str(
+            u_lname) + " ( @" + str(u_name) + " ) на " + day + ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
         top_text2 = "Курс Privatbank по отделениям для " + \
-            str(u_fname)+" "+str(u_lname)+" ) на "+day + \
-            ":"+"\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+                    str(u_fname) + " " + str(u_lname) + " ) на " + day + \
+                    ":" + "\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
 
         usd = str(usd_cur.parsing_pb()[0]) + cname2 + "\n" + str(usd_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-            str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
-            "\n______________________________\n"
+              str(usd_cur.parsing_pb()[2]) + "  - продажа" + \
+              "\n______________________________\n"
 
         eur = str(eur_cur.parsing_pb()[0]) + cname1 + "\n" + str(eur_cur.parsing_pb()[1]) + "  - покупка" + "\n" + \
-            str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
-            "\n______________________________\n"
+              str(eur_cur.parsing_pb()[2]) + "  - продажа" + \
+              "\n______________________________\n"
 
         if u_name is None:
-            bot.send_message(message.chat.id, top_text2 + usd +
-                             eur + footer, reply_markup=inline_keyboard)
+            text = (f"<b>{top_text2}</b>"
+            f"<b>{eur}</b>"
+            f"<b>{usd}</b>"
+            f"<b>{footer}</b>")
         else:
-            bot.send_message(message.chat.id, top_text + usd +
-                             eur + footer, reply_markup=inline_keyboard)
-        try:
-            odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
-        except Exception as e:
-            logger.warning(f"Error in callback - {e}")
+            text = (f"<b>{top_text}</b>"
+            f"<b>{eur}</b>"
+            f"<b>{usd}</b>"
+            f"<b>{footer}</b>")
+        send_mesaages(
+            chat_id,
+            active_message_id,
+            text, keyboard
+        )
+        # try:
+        # odoo_db.odoo_bot_send(str(message.text),str(usd_cur.parsing_pb()[0]) ,str(eur_cur.parsing_pb()[0]), str(usd_cur.parsing_pb()[2]),str(usd_cur.parsing_pb()[1]), str(eur_cur.parsing_pb()[2]),str(eur_cur.parsing_pb()[1]))
+        # except Exception as e:
+        #     logger.warning(f"Error in callback - {e}")
     else:
         logger.warning(f"Выбирайте нужную комманду")
 
-        bot.send_message(message.chat.id,  "@"+u_name +
-                         ' правильнее будет - /start ')
+        bot.send_message(
+            message.chat.id, "@" + u_name +
+                             ' правильнее будет - /start ')
 
+def send_mesaages(chat_id, active_message_id, text, keyboard):
+    bot.edit_message_text(
+        chat_id=chat_id,
+        message_id=active_message_id,
+        text=text,
+        parse_mode='html',
+        reply_markup=keyboard
+    )
 
 bot.polling(none_stop=True)
