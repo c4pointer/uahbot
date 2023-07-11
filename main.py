@@ -317,5 +317,4 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
         bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
 
 
-
 bot.polling(none_stop=True)
