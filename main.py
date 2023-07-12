@@ -19,6 +19,10 @@ from config2 import link as lnk
 from bot_controller import keep_alive
 
 logger = logging.getLogger()
+logging.basicConfig(
+  format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+  filename='app.log',
+)
 logger.setLevel(logging.INFO)
 
 bot = telebot.TeleBot(config2.token)
