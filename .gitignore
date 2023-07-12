@@ -4,3 +4,4 @@ plaintext.txt
 __pycache__
 config.py
 .idea
+venv

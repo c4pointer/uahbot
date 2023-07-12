@@ -88,7 +88,6 @@ def send_welcome(message):
     text='Смотреть Список Банков',
     callback_data=f'main_screen|{language_code}')
   keyboard.add(main)
-  logger.warning(message)
   chat_id = message.chat.id
   active_message_id = message.id + 1
   text = "Смотреть Список Банков"
