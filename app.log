@@ -328,3 +328,17 @@ telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsucc
 2023-07-12 19:53:30,751 - __main__ - WARNING - ID 42568070
 2023-07-12 19:53:30,752 - __main__ - WARNING - ID mr_etelstan
 2023-07-12 19:53:30,804 - __main__ - WARNING - User added
+2023-07-12 17:22:33,795 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.75:80
+2023-07-12 17:22:33,795 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-12 17:22:35,891 - werkzeug - INFO - 172.31.196.1 - - [12/Jul/2023 17:22:35] "GET / HTTP/1.1" 200 -
+2023-07-12 17:23:27,335 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.75:80
+2023-07-12 17:23:27,335 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-12 17:23:28,989 - werkzeug - INFO - 172.31.196.1 - - [12/Jul/2023 17:23:28] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-12 17:23:29,070 - werkzeug - INFO - 172.31.196.1 - - [12/Jul/2023 17:23:29] "GET / HTTP/1.1" 200 -
+2023-07-12 17:24:09,299 - root - WARNING - User added

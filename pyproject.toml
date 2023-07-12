@@ -10,6 +10,8 @@ telebot = "^0.0.5"
 Flask = "^2.3.2"
 iso4217parse = "^0.5.1"
 requests = "^2.31.0"
+python-dotenv = "^1.0.0"
+schedule = "^1.2.0"
 
 [tool.poetry.dev-dependencies]
 
