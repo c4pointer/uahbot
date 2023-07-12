@@ -338,7 +338,7 @@ def work_process():
 
 
 def schedule_task():
-  schedule.every().minute.at(':00').do(work_process)
+  schedule.every().hour.at(':00').do(work_process)
   while True:
     schedule.run_pending()
     time.sleep(1)
