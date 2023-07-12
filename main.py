@@ -5,6 +5,8 @@
 import logging
 import time
 import os
+import schedule
+from threading import Thread
 # from dotenv import load_dotenv
 import iso4217parse
 import requests
@@ -327,5 +329,21 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
   except Exception as error:
     bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
 
+
+my_id = 42568070
+
+
+def work_process():
+  bot.send_message(my_id, 'Server is running.')
+
+
+def schedule_task():
+  schedule.every().minute.at(':00').do(work_process)
+  while True:
+    schedule.run_pending()
+    time.sleep(1)
+
+
+Thread(target=schedule_task).start()
 
 keep_alive(bot.polling(none_stop=True))
