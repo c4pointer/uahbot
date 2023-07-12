@@ -89,7 +89,7 @@ class Currency():
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
   if not chat_handler(message):
-    logger.debug(f"Command from user was started")
+    logger.info(f"Command from user was started")
     keyboard = InlineKeyboardMarkup(row_width=2)
     language_code = message.from_user.language_code
     main = types.InlineKeyboardButton(
@@ -105,7 +105,7 @@ def send_welcome(message):
 
 def chat_handler(message):
     if message.from_user.id != message.chat.id:
-      logger.debug(f"Command from group was started")
+      logger.warning(f"Command from group was started")
       return True  # Group
       
     else:

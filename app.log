@@ -5,3 +5,10 @@
 2023-07-12 07:24:52,009 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
 2023-07-12 07:24:53,939 - werkzeug - INFO - 172.31.196.1 - - [12/Jul/2023 07:24:53] "GET / HTTP/1.1" 200 -
 2023-07-12 07:25:14,923 - werkzeug - INFO - 172.31.196.1 - - [12/Jul/2023 07:25:14] "GET / HTTP/1.1" 200 -
+2023-07-12 15:40:02,955 - root - WARNING - Error in callback Monobank - 0
+2023-07-12 15:40:06,516 - root - WARNING - Error in callback Monobank - 0
+2023-07-12 15:40:55,251 - root - WARNING - Error in callback Monobank - 0
+2023-07-12 15:41:46,194 - root - INFO - Command from user was started
+2023-07-12 15:41:57,887 - root - INFO - Command from user was started
+2023-07-12 15:42:51,141 - root - WARNING - Command from group was started
+2023-07-12 15:43:20,654 - root - WARNING - Command from group was started
