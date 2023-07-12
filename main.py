@@ -88,18 +88,28 @@ class Currency():
 
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-  keyboard = InlineKeyboardMarkup(row_width=2)
-  language_code = message.from_user.language_code
-  main = types.InlineKeyboardButton(
-    text='Смотреть Список Банков',
-    callback_data=f'main_screen|{language_code}')
-  keyboard.add(main)
-  chat_id = message.chat.id
-  active_message_id = message.id + 1
-  text = "Смотреть Список Банков"
-  bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-  send_mesaages(chat_id, active_message_id, text, keyboard)
+  if not chat_handler(message):
+    logger.debug(f"Command from user was started")
+    keyboard = InlineKeyboardMarkup(row_width=2)
+    language_code = message.from_user.language_code
+    main = types.InlineKeyboardButton(
+      text='Смотреть Список Банков',
+      callback_data=f'main_screen|{language_code}')
+    keyboard.add(main)
+    chat_id = message.chat.id
+    active_message_id = message.id + 1
+    text = "Смотреть Список Банков"
+    bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+    send_mesaages(chat_id, active_message_id, text, keyboard)
 
+
+def chat_handler(message):
+    if message.from_user.id != message.chat.id:
+      logger.debug(f"Command from group was started")
+      return True  # Group
+      
+    else:
+      return False  # Private
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -335,9 +345,7 @@ topic_id = 5776
 
 
 def work_process():
-  bot.send_message(my_id,
-                   'Server is running.',
-                   reply_to_message_id=topic_id)
+  bot.send_message(my_id, f"Server is running.", reply_to_message_id=topic_id)
 
 
 def schedule_task():
