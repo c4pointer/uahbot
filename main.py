@@ -1,3 +1,4 @@
+
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # created by neo
@@ -124,20 +125,28 @@ def chat_handler(message):
             logger.warning(f"SQL coonnection failure")
         return False  # Private
 
-
 def update(chat_id, name):
     try:
         conn = sqlite3.connect("bot_db.db")
         cur = conn.cursor()
         cur.execute(
-            "INSERT INTO '" + table_for_users +
-            "' (chat_id, name) VALUES (?,?)  ;", (chat_id, name))
+            f"SELECT chat_id from '" + table_for_users + "'")
 
+        len_cur = True if int(len(list(cur))) == 0 else False
+        if len_cur and int(len(list(cur))) == int(0):
+            cur.execute(
+                "INSERT INTO '" + table_for_users +
+                "' (chat_id, name) VALUES (?,?)  ;", (chat_id, name))
+            logger.warning(f"User added")
+        else:
+            # cur.execute(
+            #     "UPDATE '" +  table_for_users +
+            #     "' SET  chat_id = ?, name=? WHERE chat_id=?;", (chat_id, name, chat_id))
+            logger.warning(f"User {chat_id} - {name} update")
         conn.commit()
         conn.close()
-        logger.warning(f"User added")
     except Exception as error:
-        logger.warning(f"SQL add to DB failure")
+        logger.warning(f"SQL add to DB failure - {error}")
 
 
 @bot.callback_query_handler(func=lambda call: True)
