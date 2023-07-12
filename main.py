@@ -330,11 +330,14 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
     bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
 
 
-my_id = 42568070
+my_id = -1001555326169
+topic_id = 5776
 
 
 def work_process():
-  bot.send_message(my_id, 'Server is running.')
+  bot.send_message(my_id,
+                   'Server is running.',
+                   reply_to_message_id=topic_id)
 
 
 def schedule_task():
