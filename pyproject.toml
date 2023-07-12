@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "repl_nix_uahbot"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+telebot = "^0.0.5"
+Flask = "^2.3.2"
+iso4217parse = "^0.5.1"
+requests = "^2.31.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
