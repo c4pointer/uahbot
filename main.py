@@ -118,7 +118,8 @@ def chat_handler(message):
       cur = conn.cursor()
 
       cur.execute(
-        f"CREATE TABLE IF NOT EXISTS '{table_for_users}' (chat_id INT ,name )")
+        f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id INT, name TEXT)"
+      )
 
       conn.commit()
       update(message.from_user.id, message.from_user.username)
