@@ -133,9 +133,9 @@ def update(chat_id, name):
         cur = conn.cursor()
         cur.execute(
             f"SELECT chat_id from '" + table_for_users + "'")
+        result_set = cur.fetchall()  # Fetch all rows from the result set
 
-        len_cur = True if int(len(list(cur))) == 0 else False
-        if len_cur and int(len(list(cur))) == int(0):
+        if len(result_set) == 0:
             cur.execute(
                 "INSERT INTO '" + table_for_users +
                 "' (chat_id, name) VALUES (?,?)  ;", (chat_id, name))
