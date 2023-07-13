@@ -1,8 +1,8 @@
-
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # created by neo
 # Version-1.0
+import datetime
 import logging
 import sqlite3
 import time
@@ -11,6 +11,7 @@ from threading import Thread
 # from dotenv import load_dotenv
 import iso4217parse
 import requests
+
 import schedule
 import telebot
 from telebot import types
@@ -30,6 +31,7 @@ logging.basicConfig(
 logger.setLevel(logging.INFO)
 
 bot = telebot.TeleBot(config2.token)
+
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
@@ -138,7 +140,9 @@ def update(chat_id, name):
                 "INSERT INTO '" + table_for_users +
                 "' (chat_id, name) VALUES (?,?)  ;", (chat_id, name))
             logger.warning(f"User added")
+            notify_add(name)
         else:
+            notify_action(name)
             # cur.execute(
             #     "UPDATE '" +  table_for_users +
             #     "' SET  chat_id = ?, name=? WHERE chat_id=?;", (chat_id, name, chat_id))
@@ -268,6 +272,8 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
     day = time.ctime()
 
     if message == 'Monobank':
+        day = time.ctime()
+        # day = str(get_datetime(call.message.date))
         usd_cur = Currency(1, json_data1)
         eur_cur = Currency(2, json_data1)  # Обьявление классов валюты##
 
@@ -301,6 +307,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         #     logger.warning(f"Error in callback - {e}")
     elif message == 'Privat karta':
         day = time.ctime()
+
         usd_cur = Currency(2, json_data2)
         eur_cur = Currency(1, json_data2)  # Обьявление классов валюты##
         top_text = "Курс Privatbank по картам для " + str(u_fname) + " " + str(
@@ -333,6 +340,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         #     logger.warning(f"Error in callback - {e}")
     elif message == 'Privat otdelenie':
         day = time.ctime()
+
         usd_cur = Currency(2, json_data3)
         eur_cur = Currency(1, json_data3)  # Обьявление классов валюты##
 
@@ -374,6 +382,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
 
 def send_mesaages(chat_id, active_message_id, text, keyboard):
     try:
+
         bot.edit_message_text(
             chat_id=chat_id,
             message_id=active_message_id,
@@ -381,16 +390,20 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
             parse_mode='html',
             reply_markup=keyboard)
     except Exception as error:
+
         bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
+
 
 
 my_id = -1001555326169
 topic_id = 5776
-
-
+logs_id = 285
 def work_process():
     bot.send_message(my_id, f"Server is running.", reply_to_message_id=topic_id)
-
+def notify_add(user):
+    bot.send_message(my_id, f"{user} user was added to DB", reply_to_message_id=logs_id)
+def notify_action(user):
+    bot.send_message(my_id, f"{user} was done action", reply_to_message_id=logs_id)
 
 def schedule_task():
     schedule.every().hour.at(':00').do(work_process)
