@@ -17,9 +17,9 @@ from telebot import types
 from telebot.types import InlineKeyboardMarkup
 
 # import config
-import config2
+import config
 from bot_controller import keep_alive
-from config2 import link as lnk
+from config import link as lnk
 
 logger = logging.getLogger()
 logging.basicConfig(
@@ -28,7 +28,7 @@ logging.basicConfig(
 )
 logger.setLevel(logging.INFO)
 
-bot = telebot.TeleBot(config2.token)
+bot = telebot.TeleBot(config.token)
 keep_alive()
 my_id = -1001555326169
 topic_id = 5776
@@ -53,9 +53,9 @@ table_for_users = 'users'
 
 class Currency():
   """
-        Создаем класс валют чтобы сюда парсить все валюты
-        и выводить вместо цифр из апи название валюты.
-        """
+          Создаем класс валют чтобы сюда парсить все валюты
+          и выводить вместо цифр из апи название валюты.
+          """
 
   def __init__(self, cur_name, api):
     self.cur_name = cur_name
@@ -63,9 +63,9 @@ class Currency():
 
   def parsing_cur(self):
     """
-                Only for API for Monobank
-                Создаем функцию которая будет парсить нашу инностранную валюту
-                """
+                    Only for API for Monobank
+                    Создаем функцию которая будет парсить нашу инностранную валюту
+                    """
     api_type = self.api
     for i in range(int(self.cur_name)):
       cur_a = (api_type[i])
@@ -79,9 +79,9 @@ class Currency():
 
   def parsing_pb(self):
     """
-                Only for API for PrivatBank
-                Создаем функцию которая будет парсить нашу инностранную валюту
-                """
+                    Only for API for PrivatBank
+                    Создаем функцию которая будет парсить нашу инностранную валюту
+                    """
     api_type = self.api
     for i in range(int(self.cur_name)):
       cur_a = (api_type[i])
@@ -419,6 +419,6 @@ def schedule_task():
     time.sleep(1)
 
 
-Thread(target=schedule_task).start()
-
-keep_alive(bot.polling(none_stop=True))
+if __name__ == '__main__':
+  Thread(target=schedule_task).start()
+  bot.polling(none_stop=True)
