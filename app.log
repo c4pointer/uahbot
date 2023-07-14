@@ -1,0 +1,9 @@
+2023-07-14 16:20:56,070 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.129:80
+2023-07-14 16:20:56,070 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-14 16:20:56,532 - werkzeug - INFO - 172.31.196.1 - - [14/Jul/2023 16:20:56] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-14 16:20:56,671 - werkzeug - INFO - 172.31.196.1 - - [14/Jul/2023 16:20:56] "GET / HTTP/1.1" 200 -
+2023-07-14 16:20:57,852 - werkzeug - INFO - 172.31.196.1 - - [14/Jul/2023 16:20:57] "GET / HTTP/1.1" 200 -
+2023-07-14 16:22:34,538 - werkzeug - INFO - 172.31.196.1 - - [14/Jul/2023 16:22:34] "GET / HTTP/1.1" 200 -

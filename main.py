@@ -29,6 +29,7 @@ logging.basicConfig(
 logger.setLevel(logging.INFO)
 
 bot = telebot.TeleBot(config2.token)
+keep_alive()
 my_id = -1001555326169
 topic_id = 5776
 logs_id = 285
@@ -96,13 +97,21 @@ def send_welcome(message):
   if not chat_handler(message):
     keyboard = InlineKeyboardMarkup(row_width=2)
     language_code = message.from_user.language_code
-    main = types.InlineKeyboardButton(
-      text='Смотреть Список Банков',
-      callback_data=f'main_screen|{language_code}')
+    if language_code == 'ru':
+      main = types.InlineKeyboardButton(
+        text='Смотреть Список Банков',
+        callback_data=f'main_screen|{language_code}')
+    else:
+      main = types.InlineKeyboardButton(
+        text="Bank List", callback_data=f'main_screen|{language_code}')
+
     keyboard.add(main)
     chat_id = message.chat.id
     active_message_id = message.id + 1
-    text = "Смотреть Список Банков"
+    if language_code == 'ru':
+      text = "Смотреть Список Банков"
+    else:
+      text = "Press Button Bank List"
     bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
     send_mesaages(chat_id, active_message_id, text, keyboard)
 
@@ -384,8 +393,7 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
                           parse_mode='html',
                           reply_markup=keyboard)
   except Exception as error:
-
-    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
+    bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
 
 
 def work_process():
