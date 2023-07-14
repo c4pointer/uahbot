@@ -367,3 +367,8 @@ telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsucc
 2023-07-13 20:08:11,308 - root - WARNING - SQL add to DB failure - no such column: mr_etelstan
 2023-07-13 20:09:46,949 - root - WARNING - User 42568070 - mr_etelstan update
 2023-07-13 20:14:02,986 - root - WARNING - User 42568070 - mr_etelstan update
+2023-07-14 03:48:34,120 - root - WARNING - User 42568070 - mr_etelstan update
+2023-07-14 04:11:46,887 - root - WARNING - User 42568070 - mr_etelstan update
+2023-07-14 04:19:31,881 - root - WARNING - User 42568070 - mr_etelstan update
+2023-07-14 04:19:36,549 - root - WARNING - User 42568070 - mr_etelstan update
+2023-07-14 04:20:08,375 - root - WARNING - User 42568070 - mr_etelstan update

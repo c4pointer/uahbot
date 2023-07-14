@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 # created by neo
 # Version-1.0
-import datetime
 import logging
 import sqlite3
 import time
@@ -24,14 +23,16 @@ from bot_controller import keep_alive
 from config2 import link as lnk
 
 logger = logging.getLogger()
-logging.basicConfig(
-  format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-  filename='app.log',
-)
+# logging.basicConfig(
+#   format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+#   filename='app.log',
+# )
 logger.setLevel(logging.INFO)
 
 bot = telebot.TeleBot(config2.token)
-
+my_id = -1001555326169
+topic_id = 5776
+logs_id = 285
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
@@ -109,7 +110,9 @@ def send_welcome(message):
 
 def chat_handler(message):
   if message.from_user.id != message.chat.id:
-    logger.warning(f"Command from group was started")
+    bot.send_message(my_id,
+                     "Was start command from Group",
+                     reply_to_message_id=logs_id)
     return True  # Group
 
   else:
@@ -124,7 +127,9 @@ def chat_handler(message):
       conn.commit()
       update(message.from_user.id, message.from_user.username)
     except Exception as error:
-      logger.warning(f"SQL coonnection failure")
+      bot.send_message(my_id,
+                       f"Exception {error}",
+                       reply_to_message_id=logs_id)
     return False  # Private
 
 
@@ -142,18 +147,22 @@ def update(chat_id, name):
       cur.execute(
         f"INSERT INTO {table_for_users} (chat_id, name) VALUES (?, ?)",
         (chat_id, name))
-      logger.warning(f"User added")
+      bot.send_message(my_id,
+                       f"User {name} added",
+                       reply_to_message_id=logs_id)
       notify_add(name)
     else:
       notify_action(name)
       cur.execute(
         f"UPDATE {table_for_users} SET chat_id=?, name=? WHERE chat_id=?",
         (chat_id, name, chat_id))
-      logger.warning(f"User {chat_id} - {name} update")
+      bot.send_message(my_id,
+                       f"User {name} updated",
+                       reply_to_message_id=logs_id)
     conn.commit()
     conn.close()
   except Exception as error:
-    logger.warning(f"SQL add to DB failure - {error}")
+    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -165,7 +174,6 @@ def callback_inline(call):
         language_code = call_data[1]
 
         keyboard = InlineKeyboardMarkup(row_width=3)
-        isbot = call.from_user.is_bot
         u_name = call.from_user.username if str(
           call.from_user.username) != 'None' else ''
         u_lname = call.from_user.last_name if str(
@@ -174,10 +182,10 @@ def callback_inline(call):
           call.from_user.first_name) != 'None' else ''
         chat_id = call.message.chat.id
         active_message_id = call.message.message_id
-        with open('users.txt', 'a') as userid:
-          userid.write(
-            str(u_name) + " - " + str(u_fname) + " " + str(u_lname) +
-            str('\n'))
+        # with open('users.txt', 'a') as userid:
+        #   userid.write(
+        #     str(u_name) + " - " + str(u_fname) + " " + str(u_lname) +
+        #     str('\n'))
         if str(language_code) == 'ru':
           keyboard1 = types.InlineKeyboardButton(
             text='Monobank', callback_data=f'Monobank|{language_code}')
@@ -219,8 +227,10 @@ def callback_inline(call):
         active_message_id = call.message.message_id
         command_bank(call, message, call.message.chat.id, active_message_id,
                      language_code)
-    except Exception as e:
-      logger.warning(f"Error in callback Monobank - {e}")
+    except Exception as error:
+      bot.send_message(my_id,
+                       f"Exception {error}",
+                       reply_to_message_id=logs_id)
 
     try:
       if str(call.data).startswith('Privat karta'):
@@ -230,8 +240,10 @@ def callback_inline(call):
         active_message_id = call.message.message_id
         command_bank(call, message, call.message.chat.id, active_message_id,
                      language_code)
-    except Exception as e:
-      logger.warning(f"Error in callback Privat karta - {e}")
+    except Exception as error:
+      bot.send_message(my_id,
+                       f"Exception {error}",
+                       reply_to_message_id=logs_id)
 
     try:
       if str(call.data).startswith('Privat otdelenie'):
@@ -241,11 +253,13 @@ def callback_inline(call):
         active_message_id = call.message.message_id
         command_bank(call, message, call.message.chat.id, active_message_id,
                      language_code)
-    except Exception as e:
-      logger.warning(f"Error in callback Privat otdelenie - {e}")
+    except Exception as error:
+      bot.send_message(my_id,
+                       f"Exception {error}",
+                       reply_to_message_id=logs_id)
 
-  except Exception as e:
-    logger.warning(f"Error in callback - {e}")
+  except Exception as error:
+    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
 
 
 def command_bank(call, message, chat_id, active_message_id, language_code):
@@ -372,7 +386,6 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
     # except Exception as e:
     #     logger.warning(f"Error in callback - {e}")
   else:
-    logger.warning(f"Выбирайте нужную комманду")
 
     bot.send_message(message.chat.id,
                      "@" + u_name + ' правильнее будет - /start ')
@@ -388,16 +401,11 @@ def send_mesaages(chat_id, active_message_id, text, keyboard):
                           reply_markup=keyboard)
   except Exception as error:
 
-    bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
-
-
-my_id = -1001555326169
-topic_id = 5776
-logs_id = 285
+    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
 
 
 def work_process():
-  bot.send_message(my_id, f"Server is running.", reply_to_message_id=topic_id)
+  bot.send_message(my_id, "Server is running.", reply_to_message_id=topic_id)
 
 
 def notify_add(user):
