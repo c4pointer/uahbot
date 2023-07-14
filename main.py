@@ -10,7 +10,6 @@ from threading import Thread
 # from dotenv import load_dotenv
 import iso4217parse
 import requests
-
 import schedule
 import telebot
 from telebot import types
@@ -23,10 +22,10 @@ from bot_controller import keep_alive
 from config2 import link as lnk
 
 logger = logging.getLogger()
-# logging.basicConfig(
-#   format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-#   filename='app.log',
-# )
+logging.basicConfig(
+  format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+  filename='app.log',
+)
 logger.setLevel(logging.INFO)
 
 bot = telebot.TeleBot(config2.token)
@@ -53,9 +52,9 @@ table_for_users = 'users'
 
 class Currency():
   """
-      Создаем класс валют чтобы сюда парсить все валюты
-      и выводить вместо цифр из апи название валюты.
-      """
+        Создаем класс валют чтобы сюда парсить все валюты
+        и выводить вместо цифр из апи название валюты.
+        """
 
   def __init__(self, cur_name, api):
     self.cur_name = cur_name
@@ -63,9 +62,9 @@ class Currency():
 
   def parsing_cur(self):
     """
-            Only for API for Monobank
-            Создаем функцию которая будет парсить нашу инностранную валюту
-            """
+                Only for API for Monobank
+                Создаем функцию которая будет парсить нашу инностранную валюту
+                """
     api_type = self.api
     for i in range(int(self.cur_name)):
       cur_a = (api_type[i])
@@ -79,9 +78,9 @@ class Currency():
 
   def parsing_pb(self):
     """
-            Only for API for PrivatBank
-            Создаем функцию которая будет парсить нашу инностранную валюту
-            """
+                Only for API for PrivatBank
+                Создаем функцию которая будет парсить нашу инностранную валюту
+                """
     api_type = self.api
     for i in range(int(self.cur_name)):
       cur_a = (api_type[i])
@@ -110,26 +109,18 @@ def send_welcome(message):
 
 def chat_handler(message):
   if message.from_user.id != message.chat.id:
-    bot.send_message(my_id,
-                     "Was start command from Group",
-                     reply_to_message_id=logs_id)
     return True  # Group
-
   else:
     try:
       conn = sqlite3.connect("bot_db.db")
       cur = conn.cursor()
-
       cur.execute(
         f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id INT, name TEXT)"
       )
-
       conn.commit()
       update(message.from_user.id, message.from_user.username)
     except Exception as error:
-      bot.send_message(my_id,
-                       f"Exception {error}",
-                       reply_to_message_id=logs_id)
+      logger.warning(f"chat_handler -{error}")
     return False  # Private
 
 
@@ -147,78 +138,77 @@ def update(chat_id, name):
       cur.execute(
         f"INSERT INTO {table_for_users} (chat_id, name) VALUES (?, ?)",
         (chat_id, name))
-      bot.send_message(my_id,
-                       f"User {name} added",
-                       reply_to_message_id=logs_id)
       notify_add(name)
     else:
-      notify_action(name)
+      # notify_action(name)
       cur.execute(
         f"UPDATE {table_for_users} SET chat_id=?, name=? WHERE chat_id=?",
         (chat_id, name, chat_id))
-      bot.send_message(my_id,
-                       f"User {name} updated",
-                       reply_to_message_id=logs_id)
+
     conn.commit()
     conn.close()
   except Exception as error:
-    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
+    logger.warning(f"update - {error}")
 
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
   try:
     if call.message:
-      if str(call.data).startswith('main_screen'):
+      try:
+        if str(call.data).startswith('main_screen'):
+          call_data = call.data.split('|')
+          language_code = call_data[1]
+
+          keyboard = InlineKeyboardMarkup(row_width=3)
+          u_name = call.from_user.username if str(
+            call.from_user.username) != 'None' else ''
+          u_lname = call.from_user.last_name if str(
+            call.from_user.last_name) != 'None' else ''
+          u_fname = call.from_user.first_name if str(
+            call.from_user.first_name) != 'None' else ''
+          chat_id = call.message.chat.id
+          active_message_id = call.message.message_id
+
+          if str(language_code) == 'ru':
+            keyboard1 = types.InlineKeyboardButton(
+              text='Monobank', callback_data=f'Monobank|{language_code}')
+            keyboard2 = types.InlineKeyboardButton(
+              text='Приват Карта',
+              callback_data=f'Privat karta|{language_code}')
+            keyboard3 = types.InlineKeyboardButton(
+              text='Приват Отделение',
+              callback_data=f'Privat otdelenie|{language_code}')
+          elif str(language_code) == 'en':
+            keyboard1 = types.InlineKeyboardButton(
+              text='Monobank', callback_data=f'Monobank|{language_code}')
+            keyboard2 = types.InlineKeyboardButton(
+              text='Privat Card',
+              callback_data=f'Privat karta|{language_code}')
+            keyboard3 = types.InlineKeyboardButton(
+              text='Privat Office',
+              callback_data=f'Privat otdelenie|{language_code}')
+          keyboard.add(keyboard1, keyboard2, keyboard3)
+
+          if u_name is None:
+            text = f"Привет, {str(u_fname)} {str(u_lname)}, как твои дела? Чтобы начать - нажимай или набирай - /start",
+            send_mesaages(chat_id, active_message_id, text, keyboard)
+          else:
+            text = f"Привет, @{str(u_name)} ({str(u_fname)} {str(u_lname)}), как твои дела? Чтобы начать - нажимай или набирай - /start",
+            send_mesaages(chat_id, active_message_id, text, keyboard)
+      except Exception as error:
+        logger.warning(f"main_screen handler - {error}")
+
+    try:
+      if str(call.data).startswith('renew'):
         call_data = call.data.split('|')
-        language_code = call_data[1]
-
-        keyboard = InlineKeyboardMarkup(row_width=3)
-        u_name = call.from_user.username if str(
-          call.from_user.username) != 'None' else ''
-        u_lname = call.from_user.last_name if str(
-          call.from_user.last_name) != 'None' else ''
-        u_fname = call.from_user.first_name if str(
-          call.from_user.first_name) != 'None' else ''
-        chat_id = call.message.chat.id
+        message = call_data[1]
+        language_code = call_data[2]
         active_message_id = call.message.message_id
-        # with open('users.txt', 'a') as userid:
-        #   userid.write(
-        #     str(u_name) + " - " + str(u_fname) + " " + str(u_lname) +
-        #     str('\n'))
-        if str(language_code) == 'ru':
-          keyboard1 = types.InlineKeyboardButton(
-            text='Monobank', callback_data=f'Monobank|{language_code}')
-          keyboard2 = types.InlineKeyboardButton(
-            text='Приват Карта', callback_data=f'Privat karta|{language_code}')
-          keyboard3 = types.InlineKeyboardButton(
-            text='Приват Отделение',
-            callback_data=f'Privat otdelenie|{language_code}')
-        elif str(language_code) == 'en':
-          keyboard1 = types.InlineKeyboardButton(
-            text='Monobank', callback_data=f'Monobank|{language_code}')
-          keyboard2 = types.InlineKeyboardButton(
-            text='Приват Card', callback_data=f'Privat karta|{language_code}')
-          keyboard3 = types.InlineKeyboardButton(
-            text='Privat Office',
-            callback_data=f'Privat otdelenie|{language_code}')
-        keyboard.add(keyboard1, keyboard2, keyboard3)
-
-        if u_name is None:
-          text = f"Привет, {str(u_fname)} {str(u_lname)}, как твои дела? Чтобы начать - нажимай или набирай - /start",
-          send_mesaages(chat_id, active_message_id, text, keyboard)
-        else:
-          text = f"Привет, @{str(u_name)} ({str(u_fname)} {str(u_lname)}), как твои дела? Чтобы начать - нажимай или набирай - /start",
-          send_mesaages(chat_id, active_message_id, text, keyboard)
-
-    if str(call.data).startswith('renew'):
-      call_data = call.data.split('|')
-      message = call_data[1]
-      language_code = call_data[2]
-      active_message_id = call.message.message_id
-      command_bank(call, message, call.message.chat.id, active_message_id,
-                   language_code)
-
+        command_bank(call, message, call.message.chat.id, active_message_id,
+                     language_code)
+    except Exception as error:
+      logger.warning(f"renew handler - {error}")
     try:
       if str(call.data).startswith('Monobank'):
         call_data = call.data.split('|')
@@ -228,9 +218,7 @@ def callback_inline(call):
         command_bank(call, message, call.message.chat.id, active_message_id,
                      language_code)
     except Exception as error:
-      bot.send_message(my_id,
-                       f"Exception {error}",
-                       reply_to_message_id=logs_id)
+      logger.warning(f"Monobank handler - {error}")
 
     try:
       if str(call.data).startswith('Privat karta'):
@@ -241,9 +229,7 @@ def callback_inline(call):
         command_bank(call, message, call.message.chat.id, active_message_id,
                      language_code)
     except Exception as error:
-      bot.send_message(my_id,
-                       f"Exception {error}",
-                       reply_to_message_id=logs_id)
+      logger.warning(f"Privat karta - {error}")
 
     try:
       if str(call.data).startswith('Privat otdelenie'):
@@ -254,12 +240,10 @@ def callback_inline(call):
         command_bank(call, message, call.message.chat.id, active_message_id,
                      language_code)
     except Exception as error:
-      bot.send_message(my_id,
-                       f"Exception {error}",
-                       reply_to_message_id=logs_id)
+      logger.warning(f"Privat otdelenie - {error}")
 
   except Exception as error:
-    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
+    logger.warning(f"bot.callback_query_handler - {error}")
 
 
 def command_bank(call, message, chat_id, active_message_id, language_code):
