@@ -38,6 +38,10 @@
 #         # """, ((name_uah), (usd), (eur), (sell_usd), (buy_usd),  (sell_eur), (buy_eur), (name_uah))
 #         # )
 #     conn.commit()
-#
-#
+
+
+
+#days = int(time.time())
+
+#day = datetime.datetime.fromtimestamp(days).strftime('%m-%d %H:%M')
 

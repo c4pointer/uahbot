@@ -1,3 +1,188 @@
+2023-07-14 19:11:40,440 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: chat not found
+2023-07-14 19:11:40,442 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 384, in send_mesaages
+    bot.edit_message_text(chat_id=chat_id,
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 3826, in edit_message_text
+    result = apihelper.edit_message_text(self.token, text, chat_id, message_id, inline_message_id, parse_mode,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 1320, in edit_message_text
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message to edit not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1074, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 147, in raise_exceptions
+    raise self.exception_info
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 90, in run
+    task(*args, **kwargs)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 6770, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 110, in send_welcome
+    send_mesaages(chat_id, active_message_id, text, keyboard)
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 391, in send_mesaages
+    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1549, in send_message
+    apihelper.send_message(
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 264, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: chat not found
+
+2023-07-14 19:11:44,724 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: chat not found
+2023-07-14 19:11:44,725 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 384, in send_mesaages
+    bot.edit_message_text(chat_id=chat_id,
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 3826, in edit_message_text
+    result = apihelper.edit_message_text(self.token, text, chat_id, message_id, inline_message_id, parse_mode,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 1320, in edit_message_text
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message to edit not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1074, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 147, in raise_exceptions
+    raise self.exception_info
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 90, in run
+    task(*args, **kwargs)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 6770, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 110, in send_welcome
+    send_mesaages(chat_id, active_message_id, text, keyboard)
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 391, in send_mesaages
+    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1549, in send_message
+    apihelper.send_message(
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 264, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: chat not found
+
+2023-07-14 19:11:50,208 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: chat not found
+2023-07-14 19:11:50,209 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 384, in send_mesaages
+    bot.edit_message_text(chat_id=chat_id,
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 3826, in edit_message_text
+    result = apihelper.edit_message_text(self.token, text, chat_id, message_id, inline_message_id, parse_mode,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 1320, in edit_message_text
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message to edit not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1074, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 147, in raise_exceptions
+    raise self.exception_info
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 90, in run
+    task(*args, **kwargs)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 6770, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 110, in send_welcome
+    send_mesaages(chat_id, active_message_id, text, keyboard)
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 391, in send_mesaages
+    bot.send_message(my_id, f"Exception {error}", reply_to_message_id=logs_id)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1549, in send_message
+    apihelper.send_message(
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 264, in send_message
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: chat not found
+
+2023-07-14 19:12:58,807 - TeleBot - ERROR - Threaded polling exception: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message to edit not found
+2023-07-14 19:12:58,808 - TeleBot - ERROR - Exception traceback:
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 384, in send_mesaages
+    bot.edit_message_text(chat_id=chat_id,
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 3826, in edit_message_text
+    result = apihelper.edit_message_text(self.token, text, chat_id, message_id, inline_message_id, parse_mode,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 1320, in edit_message_text
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message to edit not found
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 1074, in __threaded_polling
+    self.worker_pool.raise_exceptions()
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 147, in raise_exceptions
+    raise self.exception_info
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/util.py", line 90, in run
+    task(*args, **kwargs)
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 6770, in _run_middlewares_and_handler
+    result = handler['function'](message)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 110, in send_welcome
+    send_mesaages(chat_id, active_message_id, text, keyboard)
+  File "/home/neo_ubuntu/git_repo/uahbot/main.py", line 390, in send_mesaages
+    bot.edit_message_text(
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/__init__.py", line 3826, in edit_message_text
+    result = apihelper.edit_message_text(self.token, text, chat_id, message_id, inline_message_id, parse_mode,
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 1320, in edit_message_text
+    return _make_request(token, method_url, params=payload, method='post')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 162, in _make_request
+    json_result = _check_result(method_name, result)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/neo_ubuntu/git_repo/uahbot/venv/lib/python3.11/site-packages/telebot/apihelper.py", line 189, in _check_result
+    raise ApiTelegramException(method_name, result, result_json)
+telebot.apihelper.ApiTelegramException: A request to the Telegram API was unsuccessful. Error code: 400. Description: Bad Request: message to edit not found
+
 2023-07-14 16:20:56,070 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:80
