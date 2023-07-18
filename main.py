@@ -213,6 +213,7 @@ def callback_inline(call):
                     active_message_id = call.message.message_id
 
                     if str(language_code) == 'ru':
+                        hi_message = 'Привет'
                         keyboard1 = types.InlineKeyboardButton(
                             text='Monobank', callback_data=f'Monobank|{language_code}')
                         keyboard2 = types.InlineKeyboardButton(
@@ -222,6 +223,7 @@ def callback_inline(call):
                             text='Приват Отделение',
                             callback_data=f'Privat otdelenie|{language_code}')
                     elif str(language_code) == 'en':
+                        hi_message = 'Hi'
                         keyboard1 = types.InlineKeyboardButton(
                             text='Monobank', callback_data=f'Monobank|{language_code}')
                         keyboard2 = types.InlineKeyboardButton(
@@ -233,10 +235,10 @@ def callback_inline(call):
                     keyboard.add(keyboard1, keyboard2, keyboard3)
 
                     if u_name is None:
-                        text = f"Привет, {str(u_fname)} {str(u_lname)}",
+                        text = f"{hi_message}, {str(u_fname)} {str(u_lname)}",
                         send_mesaages(chat_id, active_message_id, text, keyboard)
                     else:
-                        text = f"Привет, @{str(u_name)} ({str(u_fname)} {str(u_lname)})",
+                        text = f"{hi_message}, @{str(u_name)} ({str(u_fname)} {str(u_lname)})",
                         send_mesaages(chat_id, active_message_id, text, keyboard)
             except Exception as error:
                 logger.warning(f"main_screen handler - {error}")
