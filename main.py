@@ -160,6 +160,12 @@ def update(chat_id, name):
     logger.warning(f"update - {error}")
 
 
+@bot.message_handler(content_types=['text'])
+def text_handler(message):
+  if chat_handler(message):
+    update(message.from_user.id, message.from_user.username)
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
   try:
