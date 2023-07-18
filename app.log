@@ -1085,3 +1085,366 @@
 2023-07-18 06:38:25,360 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:38:25] "GET / HTTP/1.1" 200 -
 2023-07-18 06:38:25,738 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:38:25] "GET / HTTP/1.1" 200 -
 2023-07-18 06:38:29,216 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:38:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 06:43:29,331 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:43:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 06:48:29,242 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:48:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 06:48:49,496 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:48:49] "GET / HTTP/1.1" 200 -
+2023-07-18 06:53:29,417 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:53:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 06:58:29,348 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 06:58:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:03:29,649 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:03:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:08:29,340 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:08:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:12:06,793 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:12:06] "GET / HTTP/1.1" 200 -
+2023-07-18 07:12:11,336 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.175:80
+2023-07-18 07:12:11,336 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 07:12:11,402 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:12:11] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 07:12:11,414 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:12:11] "GET / HTTP/1.1" 200 -
+2023-07-18 07:12:12,160 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:12:12] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 07:12:12,164 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:12:12] "GET / HTTP/1.1" 200 -
+2023-07-18 07:13:29,524 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:13:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:14:49,774 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.175:80
+2023-07-18 07:14:49,774 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 07:14:49,851 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:14:49] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 07:14:49,873 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:14:49] "GET / HTTP/1.1" 200 -
+2023-07-18 07:14:50,082 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:14:50] "GET / HTTP/1.1" 200 -
+2023-07-18 07:14:50,434 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:14:50] "GET / HTTP/1.1" 200 -
+2023-07-18 07:18:29,358 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:18:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:23:29,485 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:23:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:28:29,317 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:28:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:33:29,381 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:33:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:38:29,418 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:38:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:43:29,355 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:43:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:48:29,349 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:48:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:53:29,232 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:53:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 07:58:29,304 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 07:58:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:03:29,284 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:03:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:08:29,241 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:08:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:13:29,414 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:13:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:18:29,391 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:18:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:23:29,498 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:23:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:28:29,493 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:28:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:33:29,743 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:33:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:38:29,445 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:38:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:43:29,235 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:43:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 08:48:29,326 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 08:48:29] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:08:14,582 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.134:80
+2023-07-18 10:08:14,582 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 10:08:14,773 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:08:14] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 10:08:14,854 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:08:14] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:13:09,452 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:18:09,292 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:23:09,219 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:28:09,178 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:33:09,327 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:38:09,416 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:43:09,434 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:43:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:48:09,365 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:53:09,506 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 10:58:09,582 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 10:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:03:09,479 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:08:09,351 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:13:09,278 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:18:09,280 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:23:09,509 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:24:23,830 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:24:23] "GET / HTTP/1.1" 200 -
+2023-07-18 11:28:09,255 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:33:09,214 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:38:09,480 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:43:09,424 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:43:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:48:09,177 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:53:09,227 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 11:58:09,427 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 11:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:03:09,218 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:08:09,359 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:13:09,224 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:18:09,231 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:23:09,259 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:28:09,338 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:33:09,518 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:38:09,533 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:43:09,374 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:43:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:48:09,274 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:53:09,306 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 12:58:09,212 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 12:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:03:09,358 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:08:09,213 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:13:09,430 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:18:09,217 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:23:09,267 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:28:09,423 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:33:09,246 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:38:09,315 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:43:09,520 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:43:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:48:09,279 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:53:09,745 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 13:58:09,264 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 13:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:03:09,199 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:08:09,280 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:13:09,183 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:18:09,389 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:23:09,378 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:28:09,271 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:33:09,151 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:38:09,309 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:43:10,239 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:43:10] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:48:09,234 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:53:09,419 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 14:58:09,386 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 14:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:03:09,270 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:08:09,506 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:13:09,467 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:18:09,373 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:20:10,897 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:20:10] "GET / HTTP/1.1" 200 -
+2023-07-18 15:22:05,558 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:22:05] "GET / HTTP/1.1" 200 -
+2023-07-18 15:22:19,043 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.134:80
+2023-07-18 15:22:19,046 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 15:22:19,353 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:22:19] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 15:22:19,434 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:22:19] "GET / HTTP/1.1" 200 -
+2023-07-18 15:22:19,478 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:22:19] "GET / HTTP/1.1" 200 -
+2023-07-18 15:22:19,891 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:22:19] "GET / HTTP/1.1" 200 -
+2023-07-18 15:22:41,339 - root - WARNING - update - 42568070 - mr_etelstan
+2023-07-18 15:23:09,507 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:25:17,066 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 15:25:17,067 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 15:25:17,267 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:25:17] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 15:25:17,345 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:25:17] "GET / HTTP/1.1" 200 -
+2023-07-18 15:25:18,611 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:25:18] "GET / HTTP/1.1" 200 -
+2023-07-18 15:25:20,131 - root - WARNING - *Телеграм Group ID:* -1001948756400
+2023-07-18 15:28:09,255 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:33:09,318 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:38:09,512 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:43:09,333 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:43:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:48:09,266 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:53:09,221 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 15:58:09,455 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 15:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:00:59,504 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:00:59] "GET / HTTP/1.1" 200 -
+2023-07-18 16:01:03,414 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 16:01:03,415 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 16:01:03,564 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:01:03] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 16:01:03,647 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:01:03] "GET / HTTP/1.1" 200 -
+2023-07-18 16:01:03,759 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:01:03] "GET / HTTP/1.1" 200 -
+2023-07-18 16:01:04,108 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:01:04] "GET / HTTP/1.1" 200 -
+2023-07-18 16:03:09,300 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:08:09,364 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:13:09,331 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:18:09,523 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:23:09,402 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:28:09,361 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:33:09,280 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:33:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:38:09,259 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:38:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:41:45,149 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:41:45] "GET / HTTP/1.1" 200 -
+2023-07-18 16:43:09,242 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:43:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:48:09,288 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:48:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:51:00,609 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:51:00] "GET / HTTP/1.1" 200 -
+2023-07-18 16:51:03,959 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 16:51:03,962 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 16:51:04,167 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:51:04] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 16:51:04,299 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:51:04] "GET / HTTP/1.1" 200 -
+2023-07-18 16:51:05,843 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:51:05] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 16:51:05,927 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:51:05] "GET / HTTP/1.1" 200 -
+2023-07-18 16:53:09,497 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:53:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 16:58:09,271 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 16:58:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:02:24,370 - root - WARNING - update - 42568070 - mr_etelstan
+2023-07-18 17:03:09,433 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:03:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:05:08,631 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:05:08] "GET / HTTP/1.1" 200 -
+2023-07-18 17:05:31,053 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:05:31,054 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:05:31,339 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:05:31] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:05:31,424 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:05:31] "GET / HTTP/1.1" 200 -
+2023-07-18 17:05:32,165 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:05:32] "GET / HTTP/1.1" 200 -
+2023-07-18 17:06:57,466 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:06:57] "GET / HTTP/1.1" 200 -
+2023-07-18 17:08:09,342 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:08:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:09:42,447 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:09:42] "GET / HTTP/1.1" 200 -
+2023-07-18 17:09:45,423 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:09:45,424 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:09:45,633 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:09:45] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:09:45,723 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:09:45] "GET / HTTP/1.1" 200 -
+2023-07-18 17:09:45,810 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:09:45] "GET / HTTP/1.1" 200 -
+2023-07-18 17:09:46,155 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:09:46] "GET / HTTP/1.1" 200 -
+2023-07-18 17:10:45,433 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:10:45] "GET / HTTP/1.1" 200 -
+2023-07-18 17:10:47,602 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:10:47,602 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:10:49,793 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:10:49] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:10:49,876 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:10:49] "GET / HTTP/1.1" 200 -
+2023-07-18 17:10:59,517 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:10:59] "GET / HTTP/1.1" 200 -
+2023-07-18 17:11:02,678 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:11:02,678 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:11:02,888 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:02] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:11:02,970 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:02] "GET / HTTP/1.1" 200 -
+2023-07-18 17:11:03,924 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:03] "GET / HTTP/1.1" 200 -
+2023-07-18 17:11:42,271 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:42] "GET / HTTP/1.1" 200 -
+2023-07-18 17:11:45,715 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:11:45,716 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:11:45,961 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:45] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:11:46,045 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:46] "GET / HTTP/1.1" 200 -
+2023-07-18 17:11:47,679 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:47] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:11:47,759 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:11:47] "GET / HTTP/1.1" 200 -
+2023-07-18 17:13:09,230 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:13:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:13:45,188 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:13:45] "GET / HTTP/1.1" 200 -
+2023-07-18 17:13:46,810 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:13:46,810 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:13:48,921 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:13:48] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:13:49,005 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:13:49] "GET / HTTP/1.1" 200 -
+2023-07-18 17:14:18,038 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:14:18,038 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:14:18,272 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:14:18] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:14:18,353 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:14:18] "GET / HTTP/1.1" 200 -
+2023-07-18 17:14:19,514 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:14:19] "GET / HTTP/1.1" 200 -
+2023-07-18 17:14:29,972 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:14:29,972 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:14:30,227 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:14:30] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:14:30,312 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:14:30] "GET / HTTP/1.1" 200 -
+2023-07-18 17:14:31,184 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:14:31] "GET / HTTP/1.1" 200 -
+2023-07-18 17:16:43,591 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:16:43,591 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:16:43,843 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:16:43] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:16:43,923 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:16:43] "GET / HTTP/1.1" 200 -
+2023-07-18 17:16:44,817 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:16:44] "GET / HTTP/1.1" 200 -
+2023-07-18 17:17:49,928 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:17:49] "GET / HTTP/1.1" 200 -
+2023-07-18 17:17:57,641 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:17:57,642 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:17:57,837 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:17:57] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:17:57,921 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:17:57] "GET / HTTP/1.1" 200 -
+2023-07-18 17:17:58,022 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:17:58] "GET / HTTP/1.1" 200 -
+2023-07-18 17:17:58,376 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:17:58] "GET / HTTP/1.1" 200 -
+2023-07-18 17:18:09,238 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:18:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:18:34,580 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:18:34,581 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:18:34,768 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:18:34] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:18:34,871 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:18:34] "GET / HTTP/1.1" 200 -
+2023-07-18 17:18:34,948 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:18:34] "GET / HTTP/1.1" 200 -
+2023-07-18 17:18:35,321 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:18:35] "GET / HTTP/1.1" 200 -
+2023-07-18 17:21:13,339 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:21:13] "GET / HTTP/1.1" 200 -
+2023-07-18 17:21:17,458 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:21:17,459 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:21:17,667 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:21:17] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:21:17,754 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:21:17] "GET / HTTP/1.1" 200 -
+2023-07-18 17:21:19,485 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:21:19] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:21:19,565 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:21:19] "GET / HTTP/1.1" 200 -
+2023-07-18 17:22:01,467 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:22:01,468 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:22:01,720 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:22:01] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:22:01,802 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:22:01] "GET / HTTP/1.1" 200 -
+2023-07-18 17:22:02,803 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:22:02] "GET / HTTP/1.1" 200 -
+2023-07-18 17:23:09,469 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:23:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:24:32,320 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:24:32,321 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:24:32,495 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:24:32] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:24:32,575 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:24:32] "GET / HTTP/1.1" 200 -
+2023-07-18 17:24:32,674 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:24:32] "GET / HTTP/1.1" 200 -
+2023-07-18 17:24:33,020 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:24:33] "GET / HTTP/1.1" 200 -
+2023-07-18 17:27:04,528 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:04] "GET / HTTP/1.1" 200 -
+2023-07-18 17:27:08,092 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:27:08,092 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:27:08,308 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:08] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:27:08,391 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:08] "GET / HTTP/1.1" 200 -
+2023-07-18 17:27:09,419 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:09] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:27:09,499 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:09] "GET / HTTP/1.1" 200 -
+2023-07-18 17:27:18,815 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:27:18,815 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:27:19,652 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:19] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:27:19,739 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:27:19] "GET / HTTP/1.1" 200 -
+2023-07-18 17:28:09,500 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:28:09] "HEAD / HTTP/1.1" 200 -
+2023-07-18 17:28:39,385 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:28:39] "GET / HTTP/1.1" 200 -
+2023-07-18 17:28:44,323 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:28:44,325 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:28:44,537 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:28:44] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:28:44,638 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:28:44] "GET / HTTP/1.1" 200 -
+2023-07-18 17:28:46,655 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:28:46] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:28:46,735 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:28:46] "GET / HTTP/1.1" 200 -
+2023-07-18 17:30:46,833 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:30:46,833 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:30:47,540 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:30:47] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:30:47,620 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:30:47] "GET / HTTP/1.1" 200 -
+2023-07-18 17:30:47,724 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:30:47] "GET / HTTP/1.1" 200 -
+2023-07-18 17:30:48,058 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:30:48] "GET / HTTP/1.1" 200 -
+2023-07-18 17:31:20,546 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:20] "GET / HTTP/1.1" 200 -
+2023-07-18 17:31:23,559 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:31:23,559 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:31:30,623 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:30] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:31:30,703 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:30] "GET / HTTP/1.1" 200 -
+2023-07-18 17:31:50,526 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:80
+ * Running on http://172.31.196.14:80
+2023-07-18 17:31:50,526 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2023-07-18 17:31:50,730 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:50] "[33mOPTIONS * HTTP/1.1[0m" 404 -
+2023-07-18 17:31:50,820 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:50] "GET / HTTP/1.1" 200 -
+2023-07-18 17:31:50,995 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:50] "GET / HTTP/1.1" 200 -
+2023-07-18 17:31:51,345 - werkzeug - INFO - 172.31.196.1 - - [18/Jul/2023 17:31:51] "GET / HTTP/1.1" 200 -

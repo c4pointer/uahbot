@@ -6,7 +6,7 @@ import logging
 import sqlite3
 import time
 from threading import Thread
-
+from datetime import datetime
 # from dotenv import load_dotenv
 import iso4217parse
 import requests
@@ -32,7 +32,12 @@ bot = telebot.TeleBot(config.token)
 keep_alive()
 my_id = -1001555326169
 topic_id = 5776
+topic_youtube = 6959
 logs_id = 285
+
+# Yuotube Group notification
+youtube_group = -1001948756400
+price = 35
 # bot.remove_webhook()
 # api of PrivatBank
 main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5"
@@ -150,6 +155,7 @@ def update(chat_id, name):
       notify_add(name)
     else:
       # notify_action(name)
+      logger.warning(f"update - {chat_id} - {name}")
       cur.execute(
         f"UPDATE {table_for_users} SET chat_id=?, name=? WHERE chat_id=?",
         (chat_id, name, chat_id))
@@ -160,11 +166,30 @@ def update(chat_id, name):
     logger.warning(f"update - {error}")
 
 
+
+@bot.message_handler(commands=['chat_id'])
+def send_info(message):
+  """
+  This command send user_id in private messages, group_id in group, and topic id if it exists.
+  """
+  if chat_handler(message):
+    message_text = ''
+    message_text += f'*Телеграм Group ID:* {message.chat.id}'
+    message_text += f'\n*Телеграм Topic ID:* {message.message_thread_id}' if message.message_thread_id is not None else ''
+  
+  try:
+    # bot.reply_to(
+    #     message, message_text,
+    #     parse_mode='Markdown')
+    logger.warning(message_text)
+  except telebot.apihelper.ApiTelegramException:
+    pass
+
+
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
   if chat_handler(message):
     update(message.from_user.id, message.from_user.username)
-
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_inline(call):
@@ -416,9 +441,26 @@ def notify_action(user):
   bot.send_message(my_id,
                    f"{user} was done action",
                    reply_to_message_id=logs_id)
+  
+def current_day():
+  now = datetime.utcnow().day
+  
+  text = (f"Monobank карта - Указать комментарии к платежу - 'Имя youtube' - <code>5375414117754084</code>\n"
+        f"Приват Банк карта - Указать комментарии к платежу - 'Имя youtube' - <code>4731185602005933</code>\n"
+        f"Цена - {price}\n\n"
+        f"Чтобы быстро скопировать номер карты нажмите на него"
+        )
 
+  if now == 20:
+    notification(youtube_group, text)
+    
+def notification(group_id,text):
+  bot.send_message(group_id, text,
+                   parse_mode='html' )
+  bot.send_message(my_id, 'Notification to Youtube group sent!', reply_to_message_id = topic_youtube)
 
 def schedule_task():
+  schedule.every().day.at('10:00').do(current_day)
   schedule.every().hour.at(':00').do(work_process)
   while True:
     schedule.run_pending()
