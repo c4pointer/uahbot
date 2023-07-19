@@ -464,7 +464,7 @@ def notification(group_id, text):
 
 
 def schedule_task():
-  schedule.every().day.at('6:00').do(current_day)
+  schedule.every().day.at('06:00').do(current_day)
   schedule.every().hour.at(':00').do(work_process)
   while True:
     schedule.run_pending()
