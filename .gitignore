@@ -6,3 +6,4 @@ config.py
 .idea
 venv
 .env
+app.log
