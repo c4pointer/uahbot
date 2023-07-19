@@ -192,75 +192,6 @@ def text_handler(message):
     update(message.from_user.id, message.from_user.username)
 
 
-def get_user_info(call):
-    u_name = call.from_user.username or ''
-    u_lname = call.from_user.last_name or ''
-    u_fname = call.from_user.first_name or ''
-    return u_name, u_fname, u_lname
-
-
-def main_screen_handler(call, language_code):
-    u_name, u_fname, u_lname = get_user_info(call)
-    chat_id = call.message.chat.id
-    active_message_id = call.message.message_id
-
-    keyboard = InlineKeyboardMarkup(row_width=3)
-    if language_code == 'ru':
-        hi_message = 'Привет'
-        keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
-        keyboard2 = types.InlineKeyboardButton(text='Приват Карта', callback_data=f'Privat karta|{language_code}')
-        keyboard3 = types.InlineKeyboardButton(text='Приват Отделение', callback_data=f'Privat otdelenie|{language_code}')
-    elif language_code == 'en':
-        hi_message = 'Hi'
-        keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
-        keyboard2 = types.InlineKeyboardButton(text='Privat Card', callback_data=f'Privat karta|{language_code}')
-        keyboard3 = types.InlineKeyboardButton(text='Privat Office', callback_data=f'Privat otdelenie|{language_code}')
-
-    keyboard.add(keyboard1, keyboard2, keyboard3)
-
-    if u_name is None:
-        text = f"{hi_message}, {u_fname} {u_lname}"
-    else:
-        text = f"{hi_message}, @{u_name} ({u_fname} {u_lname})"
-
-    send_messages(chat_id, active_message_id, text, keyboard)
-
-
-def renew_handler(call, message, language_code):
-    call_data = call.data.split('|')
-    active_message_id = call.message.message_id
-    command_bank(call, message, call.message.chat.id, active_message_id, language_code)
-
-
-def command_bank_handler(call, message, language_code):
-    call_data = call.data.split('|')
-    active_message_id = call.message.message_id
-    command_bank(call, message, call.message.chat.id, active_message_id, language_code)
-
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    try:
-        if call.message:
-            call_data = call.data.split('|')
-            action = call_data[0]
-            language_code = call_data[1]
-
-            if action == 'main_screen':
-                main_screen_handler(call, language_code)
-            elif action == 'renew':
-                renew_handler(call, call_data[1], language_code)
-            elif action == 'Monobank':
-                command_bank_handler(call, 'Monobank', language_code)
-            elif action == 'Privat karta':
-                command_bank_handler(call, 'Privat karta', language_code)
-            elif action == 'Privat otdelenie':
-                command_bank_handler(call, 'Privat otdelenie', language_code)
-
-    except Exception as error:
-        logger.warning(f"bot.callback_query_handler - {error}")
-
-
-
 def create_main_screen_keyboard(language_code):
     keyboard = InlineKeyboardMarkup(row_width=3)
 
@@ -300,6 +231,77 @@ def main_screen_handler(call, language_code):
     greeting = get_user_greeting(u_name, u_fname, u_lname, language_code)
 
     send_message(chat_id, active_message_id, greeting, keyboard)
+
+def get_user_info(call):
+    u_name = call.from_user.username or ''
+    u_lname = call.from_user.last_name or ''
+    u_fname = call.from_user.first_name or ''
+    return u_name, u_fname, u_lname
+
+
+def main_screen_handler(call, language_code):
+    u_name, u_fname, u_lname = get_user_info(call)
+    chat_id = call.message.chat.id
+    active_message_id = call.message.message_id
+
+    keyboard = InlineKeyboardMarkup(row_width=3)
+    if language_code == 'ru':
+        hi_message = 'Привет'
+        keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
+        keyboard2 = types.InlineKeyboardButton(text='Приват Карта', callback_data=f'Privat karta|{language_code}')
+        keyboard3 = types.InlineKeyboardButton(text='Приват Отделение', callback_data=f'Privat otdelenie|{language_code}')
+    elif language_code == 'en':
+        hi_message = 'Hi'
+        keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
+        keyboard2 = types.InlineKeyboardButton(text='Privat Card', callback_data=f'Privat karta|{language_code}')
+        keyboard3 = types.InlineKeyboardButton(text='Privat Office', callback_data=f'Privat otdelenie|{language_code}')
+
+    keyboard.add(keyboard1, keyboard2, keyboard3)
+
+    if u_name is None:
+        text = f"{hi_message}, {u_fname} {u_lname}"
+    else:
+        text = f"{hi_message}, @{u_name} ({u_fname} {u_lname})"
+
+    send_message(chat_id, active_message_id, text, keyboard)
+
+
+def renew_handler(call, message, language_code):
+    call_data = call.data.split('|')
+    active_message_id = call.message.message_id
+    command_bank(call, message, call.message.chat.id, active_message_id, language_code)
+
+
+def command_bank_handler(call, message, language_code):
+    call_data = call.data.split('|')
+    active_message_id = call.message.message_id
+    command_bank(call, message, call.message.chat.id, active_message_id, language_code)
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call):
+    try:
+        if call.message:
+            call_data = call.data.split('|')
+            action = call_data[0]
+            language_code = call_data[1]
+
+            if action == 'main_screen':
+                main_screen_handler(call, language_code)
+            elif action == 'renew':
+                renew_handler(call, call_data[1], language_code)
+            elif action == 'Monobank':
+                command_bank_handler(call, 'Monobank', language_code)
+            elif action == 'Privat karta':
+                command_bank_handler(call, 'Privat karta', language_code)
+            elif action == 'Privat otdelenie':
+                command_bank_handler(call, 'Privat otdelenie', language_code)
+
+    except Exception as error:
+        logger.warning(f"bot.callback_query_handler - {error}")
+
+
+
+
 
 
 def command_bank(call, message, chat_id, active_message_id, language_code):
