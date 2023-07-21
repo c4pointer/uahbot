@@ -220,9 +220,7 @@ def get_user_greeting(u_name, u_fname, u_lname, language_code):
 
 
 def main_screen_handler(call, language_code):
-    u_name = call.from_user.username or ''
-    u_lname = call.from_user.last_name or ''
-    u_fname = call.from_user.first_name or ''
+    u_name, u_fname, u_lname = get_user_info(call)
     chat_id = call.message.chat.id
     active_message_id = call.message.message_id
 
