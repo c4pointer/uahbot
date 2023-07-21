@@ -16,6 +16,6 @@ requests
 schedule==1.2.0
 urllib3==1.26.12
 watchdog==2.2.1
-
+SpeechRecognition
 Flask
 django
