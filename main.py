@@ -31,6 +31,7 @@ logging.basicConfig(
 )
 logger.setLevel(logging.INFO)
 
+r = sr.Recognizer()
 bot = telebot.TeleBot(config.token)
 keep_alive()
 my_id = -1001555326169
