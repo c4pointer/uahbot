@@ -127,10 +127,10 @@ def chat_handler(message):
     return True  # Group
   else:
     try:
-      conn = sqlite3.connect("bot_db.db")
+      conn = sqlite3.connect("bot_users.db")
       cur = conn.cursor()
       cur.execute(
-        f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id INT, name TEXT)"
+        f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id TEXT, name TEXT)"
       )
       conn.commit()
       update(message.from_user.id, message.from_user.username)
@@ -141,7 +141,7 @@ def chat_handler(message):
 
 def update(chat_id, name):
   try:
-    conn = sqlite3.connect("bot_db.db")
+    conn = sqlite3.connect("bot_users.db")
     cur = conn.cursor()
     cur.execute(f"SELECT chat_id from '{table_for_users}' WHERE chat_id=?",
                 (chat_id, ))
@@ -273,7 +273,6 @@ def renew_handler(call, message, language_code):
 
 
 def command_bank_handler(call, message, language_code):
-    call_data = call.data.split('|')
     active_message_id = call.message.message_id
     command_bank(call, message, call.message.chat.id, active_message_id, language_code)
 
@@ -284,24 +283,25 @@ def callback_inline(call):
             call_data = call.data.split('|')
             action = call_data[0]
             language_code = call_data[1]
-
             if action == 'main_screen':
                 main_screen_handler(call, language_code)
             elif action == 'renew':
-                renew_handler(call, call_data[1], language_code)
+                bank = call_data[1]
+                language_code = call_data[2]
+                renew_handler(call, bank, language_code)
+                bot.answer_callback_query(call.id, text='Renew' if language_code == 'en' else "Обновлено")
             elif action == 'Monobank':
                 command_bank_handler(call, 'Monobank', language_code)
+                bot.answer_callback_query(call.id, text=action)
             elif action == 'Privat karta':
                 command_bank_handler(call, 'Privat karta', language_code)
+                bot.answer_callback_query(call.id, text=action)
             elif action == 'Privat otdelenie':
                 command_bank_handler(call, 'Privat otdelenie', language_code)
+                bot.answer_callback_query(call.id, text=action)
 
     except Exception as error:
         logger.warning(f"bot.callback_query_handler - {error}")
-
-
-
-
 
 
 def command_bank(call, message, chat_id, active_message_id, language_code):
