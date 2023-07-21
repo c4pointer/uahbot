@@ -1,14 +1,17 @@
 { pkgs }: {
   deps = [
+    pkgs.sudo
     pkgs.python310Full
     pkgs.replitPackages.prybar-python310
     pkgs.replitPackages.stderred
+    pkgs.ffmpeg.bin
   ];
   env = {
     PYTHON_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
       # Needed for pandas / numpy
       pkgs.stdenv.cc.cc.lib
       pkgs.zlib
+      pkgs.libopus
       # Needed for pygame
       pkgs.glib
       # Needed for matplotlib
