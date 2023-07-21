@@ -50,8 +50,7 @@ mono_api = "https://api.monobank.ua/bank/currency"
 json_data1 = requests.get(mono_api).json()
 json_data2 = requests.get(main_api_remote).json()
 json_data3 = requests.get(main_api_local).json()
-cname1 = " - евро"
-cname2 = " - американский доллар"
+
 
 footer = f"\n{lnk}"
 table_for_users = 'users'
@@ -303,14 +302,56 @@ def callback_inline(call):
     except Exception as error:
         logger.warning(f"bot.callback_query_handler - {error}")
 
-
 def command_bank(call, message, chat_id, active_message_id, language_code):
+    translations = {
+        'en': {
+            'renew_text':  'Renew',
+            'back_text':   'Back',
+            'message_for': '{message} for',
+            'on_text':     'on',
+            'by_text':     'by',
+            'sell_text':   'sell',
+            'author_text': 'Author',
+            'eu_text':     'Euro',
+            'dollar_text': 'US Dollar',
+            'cname1':      ' - Euro',
+            'cname2':      ' - US Dollar'
+        },
+        'ru': {
+            'renew_text':  'Обновить',
+            'back_text':   'Назад',
+            'message_for': '{message} для',
+            'on_text':     'на',
+            'by_text':     'покупка',
+            'sell_text':   'продажа',
+            'author_text': 'Автор',
+            'eu_text':     'Евро',
+            'dollar_text': 'Американский Доллар',
+            'cname1':      ' - Евро',
+            'cname2':      ' - Американский Доллар'
+        }
+    }
+
+
+    renew_text = translations[language_code]['renew_text']
+    back_text = translations[language_code]['back_text']
+    bank_for = translations[language_code]['message_for'].format(message=message)
+    on_text = translations[language_code]['on_text']
+    by_text = translations[language_code]['by_text']
+    sell_text = translations[language_code]['sell_text']
+    author_text = translations[language_code]['author_text']
+    eu_text = translations[language_code]['eu_text']
+    dollar_text = translations[language_code]['dollar_text']
+    cname1 = translations[language_code]['cname1']
+    cname2 = translations[language_code]['cname2']
+
     keyboard = InlineKeyboardMarkup()
-    inkeyboard1 = types.InlineKeyboardButton("Автор", url='https://t.me/mr_etelstan', callback_data='like')
+    inkeyboard1 = types.InlineKeyboardButton(f"{author_text}", url='https://t.me/mr_etelstan', callback_data='like')
+
     renew = types.InlineKeyboardButton(
-        "Обновить курс", callback_data=f'renew|{message}|{language_code}')
+        f"{renew_text}", callback_data=f'renew|{message}|{language_code}')
     back = types.InlineKeyboardButton(
-        "Назад", callback_data=f'main_screen|{language_code}')
+        f"{back_text}", callback_data=f'main_screen|{language_code}')
     keyboard.add(inkeyboard1)
     keyboard.add(renew, back)
 
@@ -324,10 +365,10 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         usd_cur = Currency(1, json_data1)
         eur_cur = Currency(2, json_data1)
 
-        top_text = f"Monobank для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        top_text2 = f"Monobank для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        usd = f"{usd_cur.parsing_cur()[0]}{cname2}\n{usd_cur.parsing_cur()[1]}  - покупка\n{usd_cur.parsing_cur()[2]}  - продажа\n______________________________\n"
-        eur = f"{eur_cur.parsing_cur()[0]}{cname1}\n{eur_cur.parsing_cur()[1]}  - покупка\n{eur_cur.parsing_cur()[2]}  - продажа\n______________________________\n"
+        top_text = f"{bank_for} {u_fname} {u_lname} (@{u_name}) {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"{bank_for} {u_fname} {u_lname} {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        usd = f"{usd_cur.parsing_cur()[0]}{cname2}\n{usd_cur.parsing_cur()[1]}  - {by_text}\n{usd_cur.parsing_cur()[2]}  - {sell_text}\n______________________________\n"
+        eur = f"{eur_cur.parsing_cur()[0]}{cname1}\n{eur_cur.parsing_cur()[1]}  - {by_text}\n{eur_cur.parsing_cur()[2]}  - {sell_text}\n______________________________\n"
 
         text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
 
@@ -339,10 +380,10 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         usd_cur = Currency(2, json_data2)
         eur_cur = Currency(1, json_data2)
 
-        top_text = f"Privatbank по картам для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        top_text2 = f"Privatbank по картам для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        usd = f"{usd_cur.parsing_pb()[0]}{cname2}\n{usd_cur.parsing_pb()[1]}  - покупка\n{usd_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
-        eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - покупка\n{eur_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
+        top_text = f"{bank_for} {u_fname} {u_lname} (@{u_name}) {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"{bank_for} {u_fname} {u_lname} {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        usd = f"{usd_cur.parsing_pb()[0]}{cname2}\n{usd_cur.parsing_pb()[1]}  - {by_text}\n{usd_cur.parsing_pb()[2]}  - {sell_text}\n______________________________\n"
+        eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - {by_text}\n{eur_cur.parsing_pb()[2]}  - {sell_text}\n______________________________\n"
 
         text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
 
@@ -354,10 +395,10 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         usd_cur = Currency(2, json_data3)
         eur_cur = Currency(1, json_data3)
 
-        top_text = f"Privatbank по отделениям для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        top_text2 = f"Privatbank по отделениям для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        usd = f"{usd_cur.parsing_pb()[0]}{cname2}\n{usd_cur.parsing_pb()[1]}  - покупка\n{usd_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
-        eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - покупка\n{eur_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
+        top_text = f"{bank_for} {u_fname} {u_lname} (@{u_name}) {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"{bank_for} {u_fname} {u_lname} {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        usd = f"{usd_cur.parsing_pb()[0]}{cname2}\n{usd_cur.parsing_pb()[1]}  - {by_text}\n{usd_cur.parsing_pb()[2]}  - {sell_text}\n______________________________\n"
+        eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - {by_text}\n{eur_cur.parsing_pb()[2]}  - {sell_text}\n______________________________\n"
 
         text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
 
