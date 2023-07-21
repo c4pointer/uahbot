@@ -77,8 +77,8 @@ class Currency():
       name_cur = cur_a.get('currencyCodeA')
       pars = iso4217parse.by_code_num(int(name_cur))
       pars_cur4 = pars.alpha3
-      rateBuy = cur_a.get('rateBuy')
-      rateSell = cur_a.get('rateSell')
+      rateBuy = round(float(cur_a.get('rateBuy')), 2)
+      rateSell = round(float(cur_a.get('rateSell')), 2)
       i += 1
     return pars_cur4, rateBuy, rateSell
 
@@ -91,8 +91,8 @@ class Currency():
     for i in range(int(self.cur_name)):
       cur_a = (api_type[i])
       name_cur = cur_a.get('ccy')
-      rateBuy = cur_a.get('buy')
-      rateSell = cur_a.get('sale')
+      rateBuy = round(float(cur_a.get('buy')), 2)
+      rateSell = round(float(cur_a.get('sale')), 2)
       i += 1
     return name_cur, rateBuy, rateSell
 
