@@ -330,7 +330,6 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         }
     }
 
-
     renew_text = translations[language_code]['renew_text']
     back_text = translations[language_code]['back_text']
     bank_for = translations[language_code]['message_for'].format(message=message)
@@ -407,7 +406,6 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
 
 def send_message(chat_id, active_message_id, text, keyboard):
   try:
-
     bot.edit_message_text(chat_id=chat_id,
                           message_id=active_message_id,
                           text=text,
@@ -416,6 +414,17 @@ def send_message(chat_id, active_message_id, text, keyboard):
   except Exception as error:
     bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
 
+@bot.message_handler(func=lambda message: message.new_chat_members is not None)
+def greet_new_members(message):
+    language_code = message.from_user.language_code
+    for new_member in message.new_chat_members:
+        # Customize the greeting message here
+        if language_code == 'en':
+            greeting_message = f"Welcome, {new_member.first_name}! Thanks for joining our group."
+        else:
+            greeting_message = f"Привет, {new_member.first_name}! Добро пожаловать в нашу группу."
+        # Send the greeting message to the new member
+        bot.send_message(new_member.id, greeting_message)
 
 def work_process():
   bot.send_message(my_id, "Server is running.", reply_to_message_id=topic_id)
