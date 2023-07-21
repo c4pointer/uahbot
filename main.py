@@ -324,8 +324,8 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         usd_cur = Currency(1, json_data1)
         eur_cur = Currency(2, json_data1)
 
-        top_text = f"Курс Monobank для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        top_text2 = f"Курс Monobank для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text = f"Monobank для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"Monobank для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         usd = f"{usd_cur.parsing_cur()[0]}{cname2}\n{usd_cur.parsing_cur()[1]}  - покупка\n{usd_cur.parsing_cur()[2]}  - продажа\n______________________________\n"
         eur = f"{eur_cur.parsing_cur()[0]}{cname1}\n{eur_cur.parsing_cur()[1]}  - покупка\n{eur_cur.parsing_cur()[2]}  - продажа\n______________________________\n"
 
@@ -339,8 +339,8 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         usd_cur = Currency(2, json_data2)
         eur_cur = Currency(1, json_data2)
 
-        top_text = f"Курс Privatbank по картам для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        top_text2 = f"Курс Privatbank по картам для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text = f"Privatbank по картам для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"Privatbank по картам для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         usd = f"{usd_cur.parsing_pb()[0]}{cname2}\n{usd_cur.parsing_pb()[1]}  - покупка\n{usd_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
         eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - покупка\n{eur_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
 
@@ -354,8 +354,8 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         usd_cur = Currency(2, json_data3)
         eur_cur = Currency(1, json_data3)
 
-        top_text = f"Курс Privatbank по отделениям для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
-        top_text2 = f"Курс Privatbank по отделениям для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text = f"Privatbank по отделениям для {u_fname} {u_lname} (@{u_name}) на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"Privatbank по отделениям для {u_fname} {u_lname} на {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
         usd = f"{usd_cur.parsing_pb()[0]}{cname2}\n{usd_cur.parsing_pb()[1]}  - покупка\n{usd_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
         eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - покупка\n{eur_cur.parsing_pb()[2]}  - продажа\n______________________________\n"
 
