@@ -3,17 +3,17 @@
 # created by neo
 # Version-1.0
 import logging
+import os
 import sqlite3
+import subprocess
 import time
 from datetime import datetime
 from threading import Thread
-import speech_recognition as sr
-import subprocess
-import os
+
 # from dotenv import load_dotenv
-import iso4217parse
 import requests
 import schedule
+import speech_recognition as sr
 import telebot
 from telebot import types
 # import odoo_db
@@ -21,6 +21,8 @@ from telebot.types import InlineKeyboardMarkup
 
 # import config
 import config
+from binance import Binance, binance_screen_handler, symbol_screen_handler
+from binance import Currency
 from bot_controller import keep_alive
 from config import link as lnk
 
@@ -49,6 +51,8 @@ main_api_local = "https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid
 main_api_remote = "https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11"
 # api of Monobank
 mono_api = "https://api.monobank.ua/bank/currency"
+# API Binance
+# api_binance = 'https://api.binance.com/api/v3/exchangeInfo?symbol=USDTUAH'
 ###########################################################################
 json_data1 = requests.get(mono_api).json()
 json_data2 = requests.get(main_api_remote).json()
@@ -58,45 +62,11 @@ footer = f"\n{lnk}"
 table_for_users = 'users'
 
 
-class Currency():
-    """
-              Создаем класс валют чтобы сюда парсить все валюты
-              и выводить вместо цифр из апи название валюты.
-              """
-
-    def __init__(self, cur_name, api):
-        self.cur_name = cur_name
-        self.api = api
-
-    def parsing_cur(self):
-        """
-                            Only for API for Monobank
-                            Создаем функцию которая будет парсить нашу инностранную валюту
-                            """
-        api_type = self.api
-        for i in range(int(self.cur_name)):
-            cur_a = (api_type[i])
-            name_cur = cur_a.get('currencyCodeA')
-            pars = iso4217parse.by_code_num(int(name_cur))
-            pars_cur4 = pars.alpha3
-            rateBuy = round(float(cur_a.get('rateBuy')), 2)
-            rateSell = round(float(cur_a.get('rateSell')), 2)
-            i += 1
-        return pars_cur4, rateBuy, rateSell
-
-    def parsing_pb(self):
-        """
-                            Only for API for PrivatBank
-                            Создаем функцию которая будет парсить нашу инностранную валюту
-                            """
-        api_type = self.api
-        for i in range(int(self.cur_name)):
-            cur_a = (api_type[i])
-            name_cur = cur_a.get('ccy')
-            rateBuy = round(float(cur_a.get('buy')), 2)
-            rateSell = round(float(cur_a.get('sale')), 2)
-            i += 1
-        return name_cur, rateBuy, rateSell
+# all_symbols_prices = get_all_symbols_prices()
+#
+# if all_symbols_prices is not None:
+#     symbols_list = [symbol_info['symbol'] for symbol_info in all_symbols_prices if "UAH" in symbol_info['symbol']]
+#     print(symbols_list)
 
 
 @bot.message_handler(commands=['start'])
@@ -202,12 +172,14 @@ def create_main_screen_keyboard(language_code):
         keyboard2 = types.InlineKeyboardButton(text='Приват Карта', callback_data=f'Privat karta|{language_code}')
         keyboard3 = types.InlineKeyboardButton(
             text='Приват Отделение', callback_data=f'Privat otdelenie|{language_code}')
+        keyboard4 = types.InlineKeyboardButton(text='Binance', callback_data=f'Binance|{language_code}')
     elif language_code == 'en':
         keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
         keyboard2 = types.InlineKeyboardButton(text='Privat Card', callback_data=f'Privat karta|{language_code}')
         keyboard3 = types.InlineKeyboardButton(text='Privat Office', callback_data=f'Privat otdelenie|{language_code}')
+        keyboard4 = types.InlineKeyboardButton(text='Binance', callback_data=f'Binance|{language_code}')
 
-    keyboard.add(keyboard1, keyboard2, keyboard3)
+    keyboard.add(keyboard1, keyboard2, keyboard3, keyboard4)
     return keyboard
 
 
@@ -246,20 +218,21 @@ def main_screen_handler(call, language_code):
     chat_id = call.message.chat.id
     active_message_id = call.message.message_id
 
-    keyboard = InlineKeyboardMarkup(row_width=3)
+    keyboard = InlineKeyboardMarkup(row_width=4)
     if language_code == 'ru':
         hi_message = 'Привет'
         keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
         keyboard2 = types.InlineKeyboardButton(text='Приват Карта', callback_data=f'Privat karta|{language_code}')
         keyboard3 = types.InlineKeyboardButton(
             text='Приват Отделение', callback_data=f'Privat otdelenie|{language_code}')
+        keyboard4 = types.InlineKeyboardButton(text='Binance', callback_data=f'Binance|{language_code}')
     elif language_code == 'en':
         hi_message = 'Hi'
         keyboard1 = types.InlineKeyboardButton(text='Monobank', callback_data=f'Monobank|{language_code}')
         keyboard2 = types.InlineKeyboardButton(text='Privat Card', callback_data=f'Privat karta|{language_code}')
         keyboard3 = types.InlineKeyboardButton(text='Privat Office', callback_data=f'Privat otdelenie|{language_code}')
-
-    keyboard.add(keyboard1, keyboard2, keyboard3)
+        keyboard4 = types.InlineKeyboardButton(text='Binance', callback_data=f'Binance|{language_code}')
+    keyboard.add(keyboard1, keyboard2, keyboard3, keyboard4)
 
     if u_name is None:
         text = f"{hi_message}, {u_fname} {u_lname}"
@@ -304,6 +277,17 @@ def callback_inline(call):
                 language_code = call_data[2]
                 renew_handler(call, bank, language_code)
                 bot.answer_callback_query(call.id, text='Renew' if language_code == 'en' else "Обновлено")
+            elif action == 'other_binance':
+                bank = call_data[1]
+                language_code = call_data[2]
+                binance_screen_handler(call, bank, language_code)
+                bot.answer_callback_query(call.id, text='Other Rates' if language_code == 'en' else "Другие Валюты")
+            elif action == 'symbol_binance':
+                symbol = call_data[1]
+                bank = call_data[2]
+                language_code = call_data[3]
+                symbol_screen_handler(call, bank, language_code, symbol)
+                bot.answer_callback_query(call.id, text=f'{symbol}' )
             elif action == 'Monobank':
                 command_bank_handler(call, 'Monobank', language_code)
                 bot.answer_callback_query(call.id, text=action)
@@ -313,6 +297,9 @@ def callback_inline(call):
             elif action == 'Privat otdelenie':
                 command_bank_handler(call, 'Privat otdelenie', language_code)
                 bot.answer_callback_query(call.id, text=action)
+            elif action == 'Binance':
+                command_bank_handler(call, 'Binance', language_code)
+                bot.answer_callback_query(call.id, text=action)
 
     except Exception as error:
         logger.warning(f"bot.callback_query_handler - {error}")
@@ -321,30 +308,33 @@ def callback_inline(call):
 def command_bank(call, message, chat_id, active_message_id, language_code):
     translations = {
         'en': {
-            'renew_text':  'Renew',
-            'back_text':   'Back',
-            'message_for': '{message} for',
-            'on_text':     'on',
-            'by_text':     'by',
-            'sell_text':   'sell',
-            'author_text': 'Author',
-            'eu_text':     'Euro',
-            'dollar_text': 'US Dollar',
-            'cname1':      ' - Euro',
-            'cname2':      ' - US Dollar'
+            'renew_text':    'Renew',
+            'back_text':     'Back',
+            'message_for':   '{message} for',
+            'on_text':       'on',
+            'by_text':       'by',
+            'sell_text':     'sell',
+            'author_text':   'Author',
+            'eu_text':       'Euro',
+            'dollar_text':   'US Dollar',
+            'cname1':        ' - Euro',
+            'cname2':        ' - US Dollar',
+            'other_binance': 'Other Rates',
+
         },
         'ru': {
-            'renew_text':  'Обновить',
-            'back_text':   'Назад',
-            'message_for': '{message} для',
-            'on_text':     'на',
-            'by_text':     'покупка',
-            'sell_text':   'продажа',
-            'author_text': 'Автор',
-            'eu_text':     'Евро',
-            'dollar_text': 'Американский Доллар',
-            'cname1':      ' - Евро',
-            'cname2':      ' - Американский Доллар'
+            'renew_text':    'Обновить',
+            'back_text':     'Назад',
+            'message_for':   '{message} для',
+            'on_text':       'на',
+            'by_text':       'покупка',
+            'sell_text':     'продажа',
+            'author_text':   'Автор',
+            'eu_text':       'Евро',
+            'dollar_text':   'Американский Доллар',
+            'cname1':        ' - Евро',
+            'cname2':        ' - Американский Доллар',
+            'other_binance': 'Другие Валюты',
         }
     }
 
@@ -359,6 +349,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
     dollar_text = translations[language_code]['dollar_text']
     cname1 = translations[language_code]['cname1']
     cname2 = translations[language_code]['cname2']
+    other_binance = translations[language_code]['other_binance']
 
     keyboard = InlineKeyboardMarkup()
     inkeyboard1 = types.InlineKeyboardButton(f"{author_text}", url='https://t.me/mr_etelstan', callback_data='like')
@@ -367,8 +358,6 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         f"{renew_text}", callback_data=f'renew|{message}|{language_code}')
     back = types.InlineKeyboardButton(
         f"{back_text}", callback_data=f'main_screen|{language_code}')
-    keyboard.add(inkeyboard1)
-    keyboard.add(renew, back)
 
     u_name = call.from_user.username or ''
     u_lname = call.from_user.last_name or ''
@@ -386,7 +375,8 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         eur = f"{eur_cur.parsing_cur()[0]}{cname1}\n{eur_cur.parsing_cur()[1]}  - {by_text}\n{eur_cur.parsing_cur()[2]}  - {sell_text}\n______________________________\n"
 
         text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
-
+        keyboard.add(inkeyboard1)
+        keyboard.add(renew, back)
         send_message(chat_id, active_message_id, text, keyboard)
 
     elif message == 'Privat karta':
@@ -401,7 +391,8 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - {by_text}\n{eur_cur.parsing_pb()[2]}  - {sell_text}\n_______\n"
 
         text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
-
+        keyboard.add(inkeyboard1)
+        keyboard.add(renew, back)
         send_message(chat_id, active_message_id, text, keyboard)
 
     elif message == 'Privat otdelenie':
@@ -416,7 +407,26 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
         eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - {by_text}\n{eur_cur.parsing_pb()[2]}  - {sell_text}\n_______\n"
 
         text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
+        keyboard.add(inkeyboard1)
+        keyboard.add(renew, back)
+        send_message(chat_id, active_message_id, text, keyboard)
 
+    elif message == 'Binance':
+        day = time.ctime()
+
+        usdt_cur = Binance('USDTUAH').show_binance()
+
+        top_text = f"{bank_for} {u_fname} {u_lname} (@{u_name}) {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        top_text2 = f"{bank_for} {u_fname} {u_lname} {on_text} {day}:\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n"
+        usd = f"\nUSDT - {usdt_cur} - UAH\n"
+
+        text = f"<b>{top_text2}</b><b>{eur}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{usd}</b><b>{footer}</b>"
+
+        other_rates = types.InlineKeyboardButton(
+            f"{other_binance}", callback_data=f'other_binance|{message}|{language_code}')
+        keyboard.add(other_rates)
+        keyboard.add(inkeyboard1)
+        keyboard.add(renew, back)
         send_message(chat_id, active_message_id, text, keyboard)
 
 
@@ -430,6 +440,7 @@ def send_message(chat_id, active_message_id, text, keyboard):
             reply_markup=keyboard)
     except Exception as error:
         bot.send_message(chat_id, text, parse_mode='html', reply_markup=keyboard)
+
 
 @bot.message_handler(content_types=['voice'])
 def voice_handler(message):
