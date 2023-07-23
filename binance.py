@@ -63,9 +63,12 @@ class Binance():
         self.api_binance = f"{api_binance}{symbol}"
 
     def show_binance(self):
+      try:
         res = requests.get(self.api_binance).json()
         rate = round(float(res['price']), 2)
         return rate
+      except Exception as error:
+        logger.warning(res)
 
 
 def get_all_symbols_prices():
