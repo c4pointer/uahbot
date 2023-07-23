@@ -8,7 +8,7 @@ import logging
 import requests
 # import odoo_db
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
-
+import iso4217parse
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
