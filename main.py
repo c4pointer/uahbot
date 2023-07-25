@@ -189,6 +189,17 @@ def create_main_screen_keyboard(language_code):
       callback_data=f'Privat otdelenie|{language_code}')
     keyboard4 = types.InlineKeyboardButton(
       text='Binance', callback_data=f'Binance|{language_code}')
+  elif language_code == 'uk':
+    hi_message = 'Привіт'
+    keyboard1 = types.InlineKeyboardButton(
+      text='Monobank', callback_data=f'Monobank|{language_code}')
+    keyboard2 = types.InlineKeyboardButton(
+      text='Приват Карта', callback_data=f'Privat karta|{language_code}')
+    keyboard3 = types.InlineKeyboardButton(
+      text='Приват Відділення',
+      callback_data=f'Privat otdelenie|{language_code}')
+    keyboard4 = types.InlineKeyboardButton(
+      text='Binance', callback_data=f'Binance|{language_code}')
   else:
     # elif language_code == 'en':
     keyboard1 = types.InlineKeyboardButton(
@@ -253,7 +264,7 @@ def main_screen_handler(call, language_code):
     keyboard4 = types.InlineKeyboardButton(
       text='Binance', callback_data=f'Binance|{language_code}')
   elif language_code == 'uk':
-    hi_message = 'Привет'
+    hi_message = 'Привіт'
     keyboard1 = types.InlineKeyboardButton(
       text='Monobank', callback_data=f'Monobank|{language_code}')
     keyboard2 = types.InlineKeyboardButton(
