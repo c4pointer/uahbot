@@ -75,6 +75,7 @@ def send_welcome(message):
   if not chat_handler(message):
     keyboard = InlineKeyboardMarkup(row_width=2)
     language_code = message.from_user.language_code
+    logger.info(language_code)
     if language_code == 'ru':
       main = types.InlineKeyboardButton(
         text='Смотреть Список Банков',
@@ -137,7 +138,7 @@ def update(chat_id, name, first_name):
       # notify_action(name)
       logger.warning(f"update - {chat_id} - {name} - {first_name}")
       cur.execute(
-        f"UPDATE {table_for_users} SET chat_id=?, name=? first_name=? WHERE chat_id=?",
+        f"UPDATE {table_for_users} SET chat_id=?, name=?, first_name=? WHERE chat_id=?",
         (chat_id, name, first_name, chat_id))
 
     conn.commit()
@@ -172,7 +173,7 @@ def send_info(message):
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
   if chat_handler(message):
-    update(message.from_user.id, message.from_user.username)
+    update(message.from_user.id, message.from_user.username, message.from_user.first_name)
 
 
 def create_main_screen_keyboard(language_code):
@@ -208,12 +209,13 @@ def get_user_greeting(u_name, u_fname, u_lname, language_code):
     hi_message = 'Привет'
   elif str(language_code) == 'en':
     hi_message = 'Hi'
+  elif str(language_code) == 'uk':
+    hi_message = 'Привіт'
 
   if u_name:
     return f"{hi_message}, @{u_name} ({u_fname} {u_lname})"
   else:
     return f"{hi_message}, {u_fname} {u_lname}"
-
 
 def main_screen_handler(call, language_code):
   u_name, u_fname, u_lname = get_user_info(call)
