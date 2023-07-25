@@ -80,6 +80,10 @@ def send_welcome(message):
       main = types.InlineKeyboardButton(
         text='Смотреть Список Банков',
         callback_data=f'main_screen|{language_code}')
+    elif language_code == 'uk':
+      main = types.InlineKeyboardButton(
+        text='Натисни щоб побачити всі доступні Банки',
+        callback_data=f'main_screen|{language_code}')
     else:
       main = types.InlineKeyboardButton(
         text="Bank List", callback_data=f'main_screen|{language_code}')
@@ -89,6 +93,8 @@ def send_welcome(message):
     active_message_id = message.id + 1
     if language_code == 'ru':
       text = "Смотреть Список Банков"
+    elif language_code == 'uk':
+        text = "Всі Банки"
     else:
       text = "Press Button Bank List"
     bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
