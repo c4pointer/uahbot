@@ -117,6 +117,7 @@ def chat_handler(message):
 
 def update(chat_id, name, first_name):
   try:
+    logger.warning(first_name)
     conn = sqlite3.connect("bot_users.db")
     cur = conn.cursor()
     cur.execute(f"SELECT chat_id from '{table_for_users}' WHERE chat_id=?",
@@ -137,7 +138,7 @@ def update(chat_id, name, first_name):
       logger.warning(f"update - {chat_id} - {name} - {first_name}")
       cur.execute(
         f"UPDATE {table_for_users} SET chat_id=?, name=? first_name=? WHERE chat_id=?",
-        (chat_id, name, chat_id, first_name))
+        (chat_id, name, first_name, chat_id))
 
     conn.commit()
     conn.close()
@@ -145,7 +146,7 @@ def update(chat_id, name, first_name):
     logger.warning(f"update - {error}")
     bot.send_message(
       my_id,
-      f"callback_query_handler - {error}",
+      f"update - {error}",
       reply_to_message_id=logs_youtube_topic)
 
 
