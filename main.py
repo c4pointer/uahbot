@@ -39,6 +39,7 @@ bot = telebot.TeleBot(config.token)
 keep_alive()
 my_id = -1001555326169
 topic_id = 5776
+logs_youtube_topic = 8092
 topic_youtube = 6959
 logs_id = 285
 
@@ -101,16 +102,20 @@ def chat_handler(message):
       conn = sqlite3.connect("bot_users.db")
       cur = conn.cursor()
       cur.execute(
-        f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id TEXT, name TEXT)"
+        f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id TEXT, name TEXT, first_name TEXT)"
       )
       conn.commit()
-      update(message.from_user.id, message.from_user.username)
+      update(message.from_user.id, message.from_user.username, message.from_user.first_name)
     except Exception as error:
       logger.warning(f"chat_handler -{error}")
+      bot.send_message(
+        my_id,
+        f"callback_query_handler - {error}",
+        reply_to_message_id=logs_youtube_topic)
     return False  # Private
 
 
-def update(chat_id, name):
+def update(chat_id, name, first_name):
   try:
     conn = sqlite3.connect("bot_users.db")
     cur = conn.cursor()
@@ -120,22 +125,28 @@ def update(chat_id, name):
     result_set = cur.fetchall()  # Fetch all rows from the result set
     if str(name) == 'None' or str(name) == 'False' or str(name) == '':
       name = 'Empty'
+    if str(first_name) == 'None' or str(first_name) == 'False' or str(first_name) == '':
+      first_name = "Empty Name"
     if len(result_set) == 0:
       cur.execute(
-        f"INSERT INTO {table_for_users} (chat_id, name) VALUES (?, ?)",
-        (chat_id, name))
-      notify_add(name)
+        f"INSERT INTO {table_for_users} (chat_id, name, first_name) VALUES (?, ?, ?)",
+        (chat_id, name, first_name))
+      notify_add(first_name)
     else:
       # notify_action(name)
-      logger.warning(f"update - {chat_id} - {name}")
+      logger.warning(f"update - {chat_id} - {name} - {first_name}")
       cur.execute(
-        f"UPDATE {table_for_users} SET chat_id=?, name=? WHERE chat_id=?",
-        (chat_id, name, chat_id))
+        f"UPDATE {table_for_users} SET chat_id=?, name=? first_name=? WHERE chat_id=?",
+        (chat_id, name, chat_id, first_name))
 
     conn.commit()
     conn.close()
   except Exception as error:
     logger.warning(f"update - {error}")
+    bot.send_message(
+      my_id,
+      f"callback_query_handler - {error}",
+      reply_to_message_id=logs_youtube_topic)
 
 
 @bot.message_handler(commands=['chat_id'])
@@ -164,7 +175,7 @@ def text_handler(message):
 
 
 def create_main_screen_keyboard(language_code):
-  keyboard = InlineKeyboardMarkup(row_width=3)
+  keyboard = InlineKeyboardMarkup(row_width=2)
 
   if language_code == 'ru':
     keyboard1 = types.InlineKeyboardButton(
@@ -226,7 +237,7 @@ def main_screen_handler(call, language_code):
   chat_id = call.message.chat.id
   active_message_id = call.message.message_id
 
-  keyboard = InlineKeyboardMarkup(row_width=4)
+  keyboard = InlineKeyboardMarkup(row_width=2)
   if language_code == 'ru':
     hi_message = 'Привет'
     keyboard1 = types.InlineKeyboardButton(
@@ -327,6 +338,10 @@ def callback_inline(call):
 
   except Exception as error:
     logger.warning(f"bot.callback_query_handler - {error}")
+    bot.send_message(
+      my_id,
+      f"callback_query_handler - {error}",
+      reply_to_message_id=logs_youtube_topic)
 
 
 def command_bank(call, message, chat_id, active_message_id, language_code):
@@ -354,24 +369,24 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
       'sell_text': 'продажа',
       'author_text': 'Автор',
       'eu_text': 'Евро',
-      'dollar_text': 'Американский Доллар',
+      'dollar_text': 'Доллар США',
       'cname1': ' - Евро',
-      'cname2': ' - Американский Доллар',
+      'cname2': ' - Доллар США',
       'other_binance': 'Другие Валюты',
     },
     'uk': {
-      'renew_text': 'Renew',
-      'back_text': 'Back',
-      'message_for': '{message} for',
-      'on_text': 'on',
-      'by_text': 'by',
-      'sell_text': 'sell',
-      'author_text': 'Author',
-      'eu_text': 'Euro',
-      'dollar_text': 'US Dollar',
-      'cname1': ' - Euro',
-      'cname2': ' - US Dollar',
-      'other_binance': 'Other Rates',
+      'renew_text': 'Оновити',
+      'back_text': 'Назад',
+      'message_for': '{message} для',
+      'on_text': 'на',
+      'by_text': 'покупка',
+      'sell_text': 'продаж',
+      'author_text': 'Автор',
+      'eu_text': 'Євро',
+      'dollar_text': 'Доллар США',
+      'cname1': ' - Євро',
+      'cname2': ' - Доллар США',
+      'other_binance': 'Їнші Валюти',
     },
   }
 
@@ -487,6 +502,10 @@ def voice_handler(message):
   file = bot.get_file(file_id)
 
   file_size = file.file_size
+  bot.send_message(
+    my_id,
+    f"voice_handler - {file_size}",
+    reply_to_message_id=logs_youtube_topic)
   if int(file_size) >= 715000:
     bot.send_message(message.chat.id, 'Upload file size is too large.')
   else:
