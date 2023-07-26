@@ -435,9 +435,9 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
   other_binance = translations[language_code]['other_binance']
 
   keyboard = InlineKeyboardMarkup()
-  inkeyboard1 = types.InlineKeyboardButton(f"{author_text}",
-                                           url='https://t.me/mr_etelstan',
-                                           callback_data='like')
+  # inkeyboard1 = types.InlineKeyboardButton(f"{author_text}",
+  #                                          url='https://t.me/mr_etelstan',
+  #                                          callback_data='like')
 
   renew = types.InlineKeyboardButton(
     f"{renew_text}", callback_data=f'renew|{message}|{language_code}')
@@ -460,7 +460,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
     eur = f"{eur_cur.parsing_cur()[0]}{cname1}\n{eur_cur.parsing_cur()[1]}  - {by_text}\n{eur_cur.parsing_cur()[2]}  - {sell_text}\n______________________________\n"
 
     text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
-    keyboard.add(inkeyboard1)
+    # keyboard.add(inkeyboard1)
     keyboard.add(renew, back)
     send_message(chat_id, active_message_id, text, keyboard)
 
@@ -476,7 +476,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
     eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - {by_text}\n{eur_cur.parsing_pb()[2]}  - {sell_text}\n_______\n"
 
     text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
-    keyboard.add(inkeyboard1)
+    # keyboard.add(inkeyboard1)
     keyboard.add(renew, back)
     send_message(chat_id, active_message_id, text, keyboard)
 
@@ -492,7 +492,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
     eur = f"{eur_cur.parsing_pb()[0]}{cname1}\n{eur_cur.parsing_pb()[1]}  - {by_text}\n{eur_cur.parsing_pb()[2]}  - {sell_text}\n_______\n"
 
     text = f"<b>{top_text2}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>" if u_name is None else f"<b>{top_text}</b><b>{eur}</b><b>{usd}</b><b>{footer}</b>"
-    keyboard.add(inkeyboard1)
+    # keyboard.add(inkeyboard1)
     keyboard.add(renew, back)
     send_message(chat_id, active_message_id, text, keyboard)
 
@@ -511,7 +511,7 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
       f"{other_binance}",
       callback_data=f'other_binance|{message}|{language_code}')
     keyboard.add(other_rates)
-    keyboard.add(inkeyboard1)
+    # keyboard.add(inkeyboard1)
     keyboard.add(renew, back)
     send_message(chat_id, active_message_id, text, keyboard)
 

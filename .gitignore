@@ -2,7 +2,6 @@ plaintext.txt
 .venv
 .vscode
 __pycache__
-config.py
 .idea
 venv
 .env
