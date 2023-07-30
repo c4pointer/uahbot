@@ -36,6 +36,7 @@ logger.setLevel(logging.INFO)
 
 r = sr.Recognizer()
 bot = telebot.TeleBot(config.token)
+youtube = telebot.TeleBot(config.youtube)
 keep_alive()
 my_id = -1001555326169
 topic_id = 5776
@@ -94,7 +95,7 @@ def send_welcome(message):
     if language_code == 'ru':
       text = "Смотреть Список Банков"
     elif language_code == 'uk':
-        text = "Всі Банки"
+      text = "Всі Банки"
     else:
       text = "Press Button Bank List"
     bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
@@ -112,13 +113,13 @@ def chat_handler(message):
         f"CREATE TABLE IF NOT EXISTS {table_for_users} (chat_id TEXT, name TEXT, first_name TEXT)"
       )
       conn.commit()
-      update(message.from_user.id, message.from_user.username, message.from_user.first_name)
+      update(message.from_user.id, message.from_user.username,
+             message.from_user.first_name)
     except Exception as error:
       logger.warning(f"chat_handler -{error}")
-      bot.send_message(
-        my_id,
-        f"callback_query_handler - {error}",
-        reply_to_message_id=logs_youtube_topic)
+      bot.send_message(my_id,
+                       f"callback_query_handler - {error}",
+                       reply_to_message_id=logs_youtube_topic)
     return False  # Private
 
 
@@ -133,7 +134,8 @@ def update(chat_id, name, first_name):
     result_set = cur.fetchall()  # Fetch all rows from the result set
     if str(name) == 'None' or str(name) == 'False' or str(name) == '':
       name = 'Empty'
-    if str(first_name) == 'None' or str(first_name) == 'False' or str(first_name) == '':
+    if str(first_name) == 'None' or str(first_name) == 'False' or str(
+        first_name) == '':
       first_name = "Empty Name"
     if len(result_set) == 0:
       cur.execute(
@@ -151,10 +153,9 @@ def update(chat_id, name, first_name):
     conn.close()
   except Exception as error:
     logger.warning(f"update - {error}")
-    bot.send_message(
-      my_id,
-      f"update - {error}",
-      reply_to_message_id=logs_youtube_topic)
+    bot.send_message(my_id,
+                     f"update - {error}",
+                     reply_to_message_id=logs_youtube_topic)
 
 
 @bot.message_handler(commands=['chat_id'])
@@ -179,7 +180,8 @@ def send_info(message):
 @bot.message_handler(content_types=['text'])
 def text_handler(message):
   if chat_handler(message):
-    update(message.from_user.id, message.from_user.username, message.from_user.first_name)
+    update(message.from_user.id, message.from_user.username,
+           message.from_user.first_name)
 
 
 def create_main_screen_keyboard(language_code):
@@ -233,6 +235,7 @@ def get_user_greeting(u_name, u_fname, u_lname, language_code):
     return f"{hi_message}, @{u_name} ({u_fname} {u_lname})"
   else:
     return f"{hi_message}, {u_fname} {u_lname}"
+
 
 def main_screen_handler(call, language_code):
   u_name, u_fname, u_lname = get_user_info(call)
@@ -369,10 +372,9 @@ def callback_inline(call):
 
   except Exception as error:
     logger.warning(f"bot.callback_query_handler - {error}")
-    bot.send_message(
-      my_id,
-      f"callback_query_handler - {error}",
-      reply_to_message_id=logs_youtube_topic)
+    bot.send_message(my_id,
+                     f"callback_query_handler - {error}",
+                     reply_to_message_id=logs_youtube_topic)
 
 
 def command_bank(call, message, chat_id, active_message_id, language_code):
@@ -533,10 +535,9 @@ def voice_handler(message):
   file = bot.get_file(file_id)
 
   file_size = file.file_size
-  bot.send_message(
-    my_id,
-    f"voice_handler - {file_size}",
-    reply_to_message_id=logs_youtube_topic)
+  bot.send_message(my_id,
+                   f"voice_handler - {file_size}",
+                   reply_to_message_id=logs_youtube_topic)
   if int(file_size) >= 715000:
     bot.send_message(message.chat.id, 'Upload file size is too large.')
   else:
@@ -620,7 +621,7 @@ def current_day():
 
 
 def notification(group_id, text):
-  bot.send_message(
+  youtube.send_message(
     group_id, text,
     parse_mode='html')  # Send message to youtube group for reminding
   bot.send_message(my_id,
