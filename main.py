@@ -615,7 +615,7 @@ def current_day():
     f"Цена - {price}\n\n"
     f"Чтобы быстро скопировать номер карты нажмите на него")
 
-  if now == 19:
+  if now == 20:
     notification(youtube_group, text)
     # notification(my_id, text)
 
@@ -630,7 +630,7 @@ def notification(group_id, text):
 
 
 def schedule_task():
-  schedule.every().day.at('06:00').do(current_day)
+  schedule.every().day.at('06:01').do(current_day)
   schedule.every().hour.at(':00').do(work_process)
   while True:
     schedule.run_pending()
