@@ -632,7 +632,7 @@ def notification(group_id, text):
 
 def schedule_task():
   schedule.every().day.at('06:01').do(current_day)
-  schedule.every().hour.at(':00').do(work_process)
+  schedule.every().hour.at(':01').do(work_process)
   while True:
     schedule.run_pending()
     time.sleep(1)
