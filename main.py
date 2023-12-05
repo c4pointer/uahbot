@@ -376,9 +376,7 @@ def callback_inline(call):
                      f"callback_query_handler - {error}",
                      reply_to_message_id=logs_youtube_topic)
 
-
-def command_bank(call, message, chat_id, active_message_id, language_code):
-  translations = {
+translations = {
     'en': {
       'renew_text': 'Renew',
       'back_text': 'Back',
@@ -422,6 +420,9 @@ def command_bank(call, message, chat_id, active_message_id, language_code):
       'other_binance': 'Їнші Валюти',
     },
   }
+
+# noinspection PyInterpreter
+def command_bank(call, message, chat_id, active_message_id, language_code):
 
   renew_text = translations[language_code]['renew_text']
   back_text = translations[language_code]['back_text']
