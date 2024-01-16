@@ -616,7 +616,7 @@ def current_day():
     f"Цена - {price}\n\n"
     f"Чтобы быстро скопировать номер карты нажмите на него")
 
-  if now == 20:
+  if now == 19:
     notification(youtube_group, text)
     # notification(my_id, text)
 
