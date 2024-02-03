@@ -22,12 +22,6 @@ jobs:
     - name: cleanup
       run: rm -rf ~/.ssh
 
-
-
-
-
-
-
 #      On the GitHub website:
 #&& sudo systemctl  restart bot.service
 #        Go to “Settings > Secrets > Actions”
@@ -35,7 +29,8 @@ jobs:
 #          SSH_PRIVATE_KEY_OWN_SERVER: content of the private key file
 #          SSH_HOST_OWN_SERVER: hostname/ip-address of your server
 #          WORK_DIR_GROUP_UAHBOT:  path to uah repo
-#          BRANCH_UAHBOT: name of the main branch
-#          SSH_USER_OWN_SERVER
+#          BRANCH_UAHBOT: name of the branch for trigger action
+#          SSH_USER_OWN_SERVER: from local machine
+#          SUDO_PASSWORD: your sudo pass on server
 #        Go to the “Actions” tab in your GitHub repository
 
