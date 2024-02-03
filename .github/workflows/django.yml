@@ -18,7 +18,7 @@ jobs:
         echo "${{ secrets.SSH_PRIVATE_KEY_OWN_SERVER }}" > ~/.ssh/id_rsa
         ssh-keyscan -H ${{ secrets.SSH_HOST_OWN_SERVER }} > ~/.ssh/known_hosts
     - name: connect and pull
-      run: ssh ${{ secrets.SSH_USER_OWN_SERVER }}@${{ secrets.SSH_HOST_OWN_SERVER }} "cd ${{ secrets.WORK_DIR_GROUP_UAHBOT }} && git checkout ${{ secrets.BRANCH_UAHBOT }} && git pull  && exit"
+      run: ssh ${{ secrets.SSH_USER_OWN_SERVER }}@${{ secrets.SSH_HOST_OWN_SERVER }} "cd ${{ secrets.WORK_DIR_GROUP_UAHBOT }} && git checkout ${{ secrets.BRANCH_UAHBOT }} && git pull && sudo systemctl  restart bot.service && exit"
     - name: cleanup
       run: rm -rf ~/.ssh
 
