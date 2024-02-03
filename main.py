@@ -37,7 +37,7 @@ logger.setLevel(logging.INFO)
 r = sr.Recognizer()
 bot = telebot.TeleBot(config.token)
 youtube = telebot.TeleBot(config.youtube)
-keep_alive()
+#keep_alive()
 my_id = -1001555326169
 topic_id = 5776
 logs_youtube_topic = 8092
@@ -122,40 +122,39 @@ def chat_handler(message):
                        reply_to_message_id=logs_youtube_topic)
     return False  # Private
 
-
 def update(chat_id, name, first_name):
-  try:
-    logger.warning(first_name)
-    conn = sqlite3.connect("bot_users.db")
-    cur = conn.cursor()
-    cur.execute(f"SELECT chat_id from '{table_for_users}' WHERE chat_id=?",
-                (chat_id, ))
+    try:
+      logger.warning(first_name)
+      conn = sqlite3.connect("bot_users.db")
+      cur = conn.cursor()
+      cur.execute(f"SELECT chat_id from '{table_for_users}' WHERE chat_id=?",
+                  (chat_id,))
 
-    result_set = cur.fetchall()  # Fetch all rows from the result set
-    if str(name) == 'None' or str(name) == 'False' or str(name) == '':
-      name = 'Empty'
-    if str(first_name) == 'None' or str(first_name) == 'False' or str(
-        first_name) == '':
-      first_name = "Empty Name"
-    if len(result_set) == 0:
-      cur.execute(
-        f"INSERT INTO {table_for_users} (chat_id, name, first_name) VALUES (?, ?, ?)",
-        (chat_id, name, first_name))
-      notify_add(first_name)
-    else:
-      # notify_action(name)
-      logger.warning(f"update - {chat_id} - {name} - {first_name}")
-      cur.execute(
-        f"UPDATE {table_for_users} SET chat_id=?, name=?, first_name=? WHERE chat_id=?",
-        (chat_id, name, first_name, chat_id))
+      result_set = cur.fetchall()  # Fetch all rows from the result set
+      if str(name) == 'None' or str(name) == 'False' or str(name) == '':
+        name = 'Empty'
+      if str(first_name) == 'None' or str(first_name) == 'False' or str(
+              first_name) == '':
+        first_name = "Empty Name"
+      if len(result_set) == 0:
+        cur.execute(
+          f"INSERT INTO {table_for_users} (chat_id, name, first_name) VALUES (?, ?, ?)",
+          (chat_id, name, first_name))
+        notify_add(first_name)
+      else:
+        # notify_action(name)
+        logger.warning(f"update - {chat_id} - {name} - {first_name}")
+        cur.execute(
+          f"UPDATE {table_for_users} SET chat_id=?, name=?, first_name=? WHERE chat_id=?",
+          (chat_id, name, first_name, chat_id))
 
-    conn.commit()
-    conn.close()
-  except Exception as error:
-    logger.warning(f"update - {error}")
-    bot.send_message(my_id,
-                     f"update - {error}",
-                     reply_to_message_id=logs_youtube_topic)
+      conn.commit()
+      conn.close()
+    except Exception as error:
+      logger.warning(f"update - {error}")
+      bot.send_message(my_id,
+                       f"update - {error}",
+                       reply_to_message_id=logs_youtube_topic)
 
 
 @bot.message_handler(commands=['chat_id'])
