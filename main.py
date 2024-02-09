@@ -27,10 +27,11 @@ from bot_controller import keep_alive
 from config import link as lnk
 import iso4217parse
 
+homedir = str(Path.home())
 logger = logging.getLogger(__name__)
 logging.basicConfig(
   format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-  filename='app.log',
+  filename=f'{homedir}app.log',
 )
 
 
