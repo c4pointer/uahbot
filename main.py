@@ -4,6 +4,7 @@
 # Version-1.0
 import logging
 import os
+import traceback
 from pathlib import Path
 import sqlite3
 import subprocess
@@ -639,5 +640,9 @@ def schedule_task():
 
 
 if __name__ == '__main__':
-  Thread(target=schedule_task).start()
-  bot.polling(none_stop=True)
+  try:
+
+    Thread(target=schedule_task).start()
+    bot.polling(none_stop=True)
+  except Exception as error:
+    logger.info(f"Polling error {error} ")
