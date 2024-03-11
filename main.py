@@ -640,9 +640,14 @@ def schedule_task():
 
 
 if __name__ == '__main__':
-  try:
 
-    Thread(target=schedule_task).start()
-    bot.polling(none_stop=True)
-  except Exception as error:
-    logger.info(f"Polling error {error} ")
+  # Start the polling loop
+  while True:
+    try:
+      Thread(target=schedule_task).start()
+      bot.polling(none_stop=True)
+    except Exception as e:
+      logging.error(f'Error during polling: {e}')
+      # Adjust the delay according to your needs
+      time.sleep(60)
+
